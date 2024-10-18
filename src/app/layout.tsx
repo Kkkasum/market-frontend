@@ -1,5 +1,3 @@
-'use client'
-
 import type { Metadata } from 'next'
 import { Albert_Sans } from 'next/font/google'
 
