@@ -1,6 +1,6 @@
 'use client'
 
-import { initData, useSignal } from '@telegram-apps/sdk-react'
+// import { initData, useSignal } from '@telegram-apps/sdk-react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -10,9 +10,9 @@ import { userId } from '@/utils/userId'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
-	const initDataState = useSignal(initData.state)
-	const userId2 = initDataState?.user?.id
-	console.log(userId2)
+	// const initDataState = useSignal(initData.state)
+	// const userId2 = initDataState?.user?.id
+	// console.log(userId2)
 
 	const { push } = useRouter()
 	const { data, isLoading } = useUser(userId)
