@@ -2,26 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+	height: 100%;
+	text-align: center;
+	color: #fff;
+	background-color: #1a2026;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	.no-arrows::-webkit-outer-spin-button,
+	.no-arrows::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	.no-arrows[type='number'] {
+		-moz-appearance: textfield;
+	}
+
+	.right-caret::after {
+		content: '';
+		background-image: url('/right-caret.svg');
+		background-position: 0 center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 12px;
+		width: 8px;
+	}
+
+	.down-caret::after {
+		content: '';
+		background-image: url('/down-caret.svg');
+		background-position: 0 center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 11px;
+	}
+
+	.checked::after {
+		content: '';
+		background-image: url('/checked.svg');
+		background-position: 0 center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		position: absolute;
+		top: 12px;
+		bottom: 0;
+		right: 10px;
+		height: 8px;
+		width: 12px;
+	}
+
+	.asset-checked::after {
+		content: '';
+		background-image: url('/checked.svg');
+		background-position: 0 center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		position: absolute;
+		top: 18px;
+		bottom: 0;
+		right: 10px;
+		height: 8px;
+		width: 12px;
+	}
+
+	.blurred {
+		filter: blur(2px) opacity(40%);
+	}
 }
