@@ -1,3 +1,5 @@
+'use client'
+
 import type { Metadata } from 'next'
 import { Albert_Sans } from 'next/font/google'
 
@@ -8,7 +10,7 @@ import './globals.css'
 const font = Albert_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-	title: 'UseTon',
+	title: 'UseTON',
 	icons: {
 		icon: [
 			{

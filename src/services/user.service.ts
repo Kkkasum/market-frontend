@@ -8,7 +8,7 @@ import {
 } from '@/types/user.type'
 
 const UserService = {
-	async getUser(userId: number) {
+	async getUser(userId?: number) {
 		const response = await axiosBase.get<IUserResponse>(`/user/${userId}`)
 		return response.data
 	},
