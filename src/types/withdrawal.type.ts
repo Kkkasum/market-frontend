@@ -1,18 +1,18 @@
-interface IWithdrawalRequest {
+interface IWithdrawRequest {
 	userId: number
 	address: string
 }
 
-export interface IWithdrawalUsdtRequest extends IWithdrawalRequest {
+export interface IWithdrawUsdtRequest extends IWithdrawRequest {
 	amount: number
 }
 
-export interface IWithdrawalTonRequest extends IWithdrawalUsdtRequest {}
+export interface IWithdrawTonRequest extends IWithdrawUsdtRequest {}
 
-export interface IWithdrawalNumberRequest extends IWithdrawalRequest {
+export interface IWithdrawNumberRequest extends IWithdrawRequest {
 	number: string
 }
 
-export interface IWithdrawalUsernameRequest extends IWithdrawalRequest {
+export interface IWithdrawUsernameRequest extends IWithdrawRequest {
 	username: string
 }
