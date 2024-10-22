@@ -19,9 +19,8 @@ export default function Page() {
 
 	useEffect(() => {
 		if (!isLoading) {
-			console.log(userId)
 			setTimeout(() => {
-				if (data?.tonBalance === 0) {
+				if (data) {
 					push(ROUTE_MARKET_NUMBERS)
 				} else {
 					push(ROUTE_ONBOARDING)

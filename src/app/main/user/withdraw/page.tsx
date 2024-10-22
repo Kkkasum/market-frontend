@@ -5,7 +5,8 @@ import { useState } from 'react'
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
 import Loader from '@/components/ui/Loader'
 import NumberForm from '@/components/user/withdraw/NumberForm'
-import TokenForm from '@/components/user/withdraw/TokenForm'
+import TonForm from '@/components/user/withdraw/TonForm'
+import UsdtForm from '@/components/user/withdraw/UsdtForm'
 import UsernameForm from '@/components/user/withdraw/UsernameForm'
 import { Asset } from '@/types/user.type'
 import { userId } from '@/utils/userId'
@@ -42,12 +43,10 @@ export default function Page() {
 					) : (
 						<span>You have no usernames yet</span>
 					)
+				) : asset === Asset.TON ? (
+					<TonForm tonBalance={data.tonBalance} />
 				) : (
-					<TokenForm
-						token={asset}
-						tonBalance={data.tonBalance}
-						usdtBalance={data.usdtBalance}
-					/>
+					<UsdtForm usdtBalance={data.usdtBalance} />
 				))}
 		</div>
 	) : (

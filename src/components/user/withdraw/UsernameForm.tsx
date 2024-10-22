@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { IUsername } from '@/types/username.type'
 import { userId } from '@/utils/userId'
-import validTonAddress from '@/utils/validTonAddress'
+import { validTonAddress } from '@/utils/validAddress'
 import UsernamesDropdown from '../../dropdown/UsernamesDropdown'
 
 interface Props {

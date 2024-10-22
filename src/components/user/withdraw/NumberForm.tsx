@@ -8,7 +8,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { INumber } from '@/types/number.type'
 import { userId } from '@/utils/userId'
-import validTonAddress from '@/utils/validTonAddress'
+import { validTonAddress } from '@/utils/validAddress'
 
 interface Props {
 	numbers: INumber[]

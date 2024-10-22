@@ -2,18 +2,15 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawToken from '@/app/main/user/hooks/withdraw/useWithdrawToken'
+import useWithdrawTon from '@/app/main/user/hooks/withdraw/useWithdrawTon'
 import Button from '@/components/ui/Button'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
-import { Asset } from '@/types/user.type'
 import { userId } from '@/utils/userId'
-import validTonAddress from '@/utils/validTonAddress'
+import { validTonAddress } from '@/utils/validAddress'
 
 interface Props {
-	token: string
 	tonBalance: number
-	usdtBalance: number
 }
 
 interface IForm {
@@ -21,8 +18,8 @@ interface IForm {
 	amount: number
 }
 
-const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
-	const { withdrawToken, isWithdrawPending } = useWithdrawToken(userId)
+const TonForm: FC<Props> = ({ tonBalance }) => {
+	const { withdrawTon, isWithdrawPending } = useWithdrawTon(userId)
 	const {
 		register,
 		handleSubmit,
@@ -31,10 +28,9 @@ const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
 	} = useForm<IForm>({ mode: 'onChange' })
 
 	const onFormSubmit = ({ address, amount }: IForm) => {
-		withdrawToken({
+		withdrawTon({
 			userId: userId,
 			address: address,
-			token: token,
 			amount: amount,
 		})
 	}
@@ -82,12 +78,9 @@ const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
 					)}
 				>
 					<Input
-						className={twMerge(
-							'text-4xl font-bold',
-							!token && 'opacity-40'
-						)}
+						className='text-4xl font-bold'
 						type='amount'
-						placeholder={token}
+						placeholder='TON'
 						{...register<'amount'>('amount', {
 							valueAsNumber: true,
 							min: {
@@ -95,10 +88,7 @@ const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
 								message: 'The minimum withdrawal amount is 0.1',
 							},
 							max: {
-								value:
-									token === Asset.TON
-										? tonBalance
-										: usdtBalance,
+								value: tonBalance,
 								message: 'Not enough balance',
 							},
 							validate: value =>
@@ -109,11 +99,7 @@ const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
 
 				<p className='flex items-center justify-between px-1'>
 					<span>Balance:</span>
-					<span>
-						{token === Asset.TON
-							? tonBalance.toFixed(2)
-							: usdtBalance.toFixed(2)}
-					</span>
+					<span>{tonBalance.toFixed(2)}</span>
 				</p>
 			</div>
 
@@ -138,4 +124,4 @@ const TokenForm: FC<Props> = ({ token, tonBalance, usdtBalance }) => {
 	)
 }
 
-export default TokenForm
+export default TonForm

@@ -12,7 +12,7 @@ const Button: FC<Props> = ({
 	return (
 		<button
 			className={twMerge(
-				'flex items-center justify-center py-3 bg-blue rounded-xl transition-opacity duration-300',
+				'flex items-center justify-center py-3 bg-blue/90 rounded-xl transition-all duration-300 hover:bg-blue',
 				disabled ? 'opacity-40' : 'cursor-pointer',
 				className
 			)}

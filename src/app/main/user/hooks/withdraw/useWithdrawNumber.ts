@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import WithdrawService from '@/services/withdraw.service'
-import { IWithdrawNumberRequest } from '@/types/withdraw.type'
+import WithdrawService from '@/services/withdrawal.service'
+import { IWithdrawNumberRequest } from '@/types/withdrawal.type'
 
 export default function useWithdrawNumber(userId: number) {
 	const queryClient = useQueryClient()

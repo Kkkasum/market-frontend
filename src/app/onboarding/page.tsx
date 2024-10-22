@@ -57,7 +57,7 @@ export default function Page() {
 			</div>
 
 			<p className='flex flex-col items-center gap-3 text-lg font-bold bottom-0'>
-				<span>Deposit TON, USDt, USDT-TRC20</span>
+				<span>Deposit TON, USDT-TRC20</span>
 				<span>Buy and Sell usernames and numbers</span>
 			</p>
 
