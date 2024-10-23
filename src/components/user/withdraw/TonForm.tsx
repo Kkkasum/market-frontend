@@ -84,8 +84,8 @@ const TonForm: FC<Props> = ({ tonBalance }) => {
 						{...register<'amount'>('amount', {
 							valueAsNumber: true,
 							min: {
-								value: 0.1,
-								message: 'The minimum withdrawal amount is 0.1',
+								value: 0.5,
+								message: 'The minimum withdrawal amount is 0.5',
 							},
 							max: {
 								value: tonBalance,

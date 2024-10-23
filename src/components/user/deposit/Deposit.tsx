@@ -77,6 +77,13 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 				<span>{data.depositAddress}</span>
 			</p>
 
+			{network === NETWORK.TON && (
+				<p className='flex items-center justify-center gap-1 bg-orange-400/10 rounded-xl p-3 w-full text-sm'>
+					<WarningIcon />
+					<span>Minimun deposit amount: 0.5 TON</span>
+				</p>
+			)}
+
 			{network === NETWORK.TRON && (
 				<p className='flex items-center justify-center gap-1 bg-orange-400/10 rounded-xl p-3 w-full text-sm'>
 					<WarningIcon />

@@ -83,8 +83,8 @@ const UsdtForm: FC<Props> = ({ usdtBalance }) => {
 						{...register<'amount'>('amount', {
 							valueAsNumber: true,
 							min: {
-								value: 0.1,
-								message: 'The minimum withdrawal amount is 0.1',
+								value: 10,
+								message: 'The minimum withdrawal amount is 10',
 							},
 							max: {
 								value: usdtBalance,
