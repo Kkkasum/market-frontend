@@ -18,5 +18,5 @@ export function formatDate(date: Date): string {
 }
 
 export function formatTxHash(hash: string): string {
-	return `${hash.slice(0, 3)}...${hash.slice(-3)}`
+	return `${hash.slice(0, 5)}...${hash.slice(-5)}`
 }

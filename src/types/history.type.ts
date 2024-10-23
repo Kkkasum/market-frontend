@@ -12,12 +12,12 @@ export interface ITx {
 export interface IDepositTx extends ITx {
 	token: string
 	amount: number
-	// hash: string
+	txHash: string
 }
 
 export interface IWithdrawalTx extends IDepositTx {
 	address: string
-	// hash: string
+	txHash: string
 }
 
 export interface ISwapTx extends ITx {

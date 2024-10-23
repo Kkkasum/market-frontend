@@ -51,7 +51,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 					Send only
 					{asset === Asset.NUMBER ? (
 						<a
-							href='https://tonviewer.com/EQAOQdwdw8kGftJCSFgOErM1mBjYPe4DBPq8-AhF6vr9si5N'
+							href='https://tonscan.com/nft/EQAOQdwdw8kGftJCSFgOErM1mBjYPe4DBPq8-AhF6vr9si5N'
 							target='_blank'
 							className='text-blue font-bold'
 						>
@@ -59,7 +59,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 						</a>
 					) : asset === Asset.USERNAME ? (
 						<a
-							href='https://tonviewer.com/EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi'
+							href='https://tonscan.com/nft/EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi'
 							target='_blank'
 							className='text-blue font-bold'
 						>
@@ -115,7 +115,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 				<a
 					href={
 						network === NETWORK.TON
-							? `https://tonviewer.com/${data.depositAddress}`
+							? `https://tonscan.com/address/${data.depositAddress}`
 							: `https://www.oklink.com/trx/address/${data.depositAddress}`
 					}
 					target='_blank'
@@ -128,13 +128,16 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 				</a>
 
 				{isCopied ? (
-					<Button className='flex items-center gap-1 w-1/2' disabled>
+					<Button
+						className='flex items-center gap-1 w-1/2 h-12'
+						disabled
+					>
 						<CheckIcon />
 						<span>Copied</span>
 					</Button>
 				) : (
 					<Button
-						className='flex items-center gap-1 w-1/2'
+						className='flex items-center gap-1 w-1/2 h-12'
 						onClick={handleCopy}
 					>
 						<CopyIcon />

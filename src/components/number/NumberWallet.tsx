@@ -40,7 +40,7 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`http://tonviewer.com/${address}`}
+						href={`http://tonscan.com/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}

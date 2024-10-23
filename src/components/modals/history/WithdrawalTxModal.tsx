@@ -1,5 +1,8 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
+import Button from '@/components/ui/Button'
+import CheckIcon from '@/components/ui/icons/CheckIcon'
+import CopyIcon from '@/components/ui/icons/CopyIcon'
 import TonIcon from '@/components/ui/icons/TonIcon'
 import UsdtIcon from '@/components/ui/icons/UsdtIcon'
 import Modal from '@/components/ui/Modal'
@@ -14,6 +17,21 @@ interface Props {
 }
 
 const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
+	const [isCopied, setIsCopied] = useState<boolean>(false)
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText(tx.txHash)
+		setIsCopied(true)
+	}
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setIsCopied(false)
+		}, 1500)
+
+		return () => clearTimeout(timeout)
+	}, [isCopied])
+
 	return (
 		<Modal
 			modalOpen={modalOpen}
@@ -50,10 +68,26 @@ const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 
 				<p className='flex items-center justify-between font-medium'>
 					<span>Tx</span>
-					<span>
-						{/* <a className='' href={`https://tonviewer.com/transaction/${tx.hash}`}>{formatTx(tx.address)}</a> */}
-					</span>
+					<span>{tx.txHash}</span>
 				</p>
+
+				{isCopied ? (
+					<Button
+						className='flex items-center gap-1 w-full h-12'
+						disabled
+					>
+						<CheckIcon />
+						<span>Copied</span>
+					</Button>
+				) : (
+					<Button
+						className='flex items-center gap-1 w-full h-12'
+						onClick={handleCopy}
+					>
+						<CopyIcon />
+						<span>Copy</span>
+					</Button>
+				)}
 			</div>
 		</Modal>
 	)
