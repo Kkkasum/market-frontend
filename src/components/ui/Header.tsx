@@ -12,7 +12,7 @@ export default function Header() {
 	return (
 		<header className='flex items-center justify-between fixed top-0 right-0 left-0 bottom-auto px-5 py-2 border-solid border-b-2 border-white/10 bg-gray-blue z-50 font-medium'>
 			<Link href={ROUTE_MARKET_NUMBERS}>
-				<LogoIcon />
+				<LogoIcon width={30} height={30} />
 			</Link>
 
 			<div className='flex flex-row items-center justify-center gap-5'>
