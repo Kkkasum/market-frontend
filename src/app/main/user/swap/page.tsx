@@ -12,6 +12,7 @@ import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import { userId } from '@/utils/userId'
+import { motion } from 'framer-motion'
 import useAddSwap from '../hooks/swap/useAddSwap'
 import useTokenRate from '../hooks/swap/useTokenRate'
 import useUser from '../hooks/useUser'
@@ -184,6 +185,16 @@ export default function Page() {
 								: '-'}
 						</span>
 					</p>
+				)}
+
+				{tokenRate.data?.rate && (
+					<motion.span
+						initial={{ opacity: 0.5 }}
+						animate={{ opacity: 1 }}
+						className='flex justify-center px-auto py-3 bg-dark-gray rounded-xl w-full'
+					>{`1 ${fromToken} ~ ${(+tokenRate.data.rate).toFixed(
+						4
+					)} ${toToken}`}</motion.span>
 				)}
 			</div>
 
