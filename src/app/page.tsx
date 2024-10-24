@@ -1,6 +1,6 @@
 'use client'
 
-import { parseInitData } from '@telegram-apps/sdk-react'
+import WebApp from '@twa-dev/sdk'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -11,7 +11,7 @@ import useUser from './main/user/hooks/useUser'
 export default function Page() {
 	let userId = 1
 	if (typeof window !== 'undefined') {
-		userId = parseInitData(1).user?.id || 1
+		userId = WebApp.initDataUnsafe.user?.id || 1
 	}
 
 	const { push } = useRouter()
