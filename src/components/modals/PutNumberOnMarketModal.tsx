@@ -1,4 +1,4 @@
-import { parseInitData } from '@telegram-apps/sdk-react'
+import WebApp from '@twa-dev/sdk'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -27,7 +27,7 @@ const PutNumberOnMarketModal: FC<Props> = ({
 	numberId,
 	number,
 }) => {
-	const userId = parseInitData(1).user?.id || 1
+	const userId = WebApp.initDataUnsafe.user?.id || 1
 
 	const { addNumber, isAddPending } = useAddNumber(userId, number)
 

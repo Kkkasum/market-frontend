@@ -1,4 +1,4 @@
-import { parseInitData } from '@telegram-apps/sdk-react'
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -23,7 +23,7 @@ const NumberMarket: FC<Props> = ({
 	createdAt,
 	ownerId,
 }) => {
-	const userId = parseInitData(1).user?.id || 1
+	const userId = WebApp.initDataUnsafe.user?.id || 1
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 

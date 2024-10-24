@@ -1,4 +1,4 @@
-import { parseInitData } from '@telegram-apps/sdk-react'
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -19,7 +19,7 @@ interface IForm {
 }
 
 const NumberForm: FC<Props> = ({ numbers }) => {
-	const userId = parseInitData(1).user?.id || 1
+	const userId = WebApp.initDataUnsafe.user?.id || 1
 
 	const [number, setNumber] = useState<string>()
 	const { withdrawNumber, isWithdrawPending } = useWithdrawNumber(userId)
