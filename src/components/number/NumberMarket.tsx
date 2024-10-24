@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -6,7 +7,6 @@ import useRemoveNumber from '@/app/main/number/hooks/useRemoveNumber'
 import useUser from '@/app/main/user/hooks/useUser'
 import { IMarketNumber } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
-import { userId } from '@/utils/userId'
 import Button from '../ui/Button'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
@@ -23,6 +23,8 @@ const NumberMarket: FC<Props> = ({
 	createdAt,
 	ownerId,
 }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 
 	const user = useUser(userId)

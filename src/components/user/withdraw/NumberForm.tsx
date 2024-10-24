@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -7,7 +8,6 @@ import NumbersDropdown from '@/components/dropdown/NumbersDropdown'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { INumber } from '@/types/number.type'
-import { userId } from '@/utils/userId'
 import { validTonAddress } from '@/utils/validAddress'
 
 interface Props {
@@ -19,6 +19,8 @@ interface IForm {
 }
 
 const NumberForm: FC<Props> = ({ numbers }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [number, setNumber] = useState<string>()
 	const { withdrawNumber, isWithdrawPending } = useWithdrawNumber(userId)
 	const {

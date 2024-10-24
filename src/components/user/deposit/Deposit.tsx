@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 
@@ -11,7 +12,6 @@ import Loader from '@/components/ui/Loader'
 import Warning from '@/components/ui/Warning'
 import { NETWORK } from '@/types/deposit.type'
 import { Asset } from '@/types/user.type'
-import { userId } from '@/utils/userId'
 
 interface Props {
 	asset: Asset
@@ -19,6 +19,8 @@ interface Props {
 }
 
 const Deposit: FC<Props> = ({ asset, network }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [isCopied, setIsCopied] = useState<boolean>(false)
 	const { data, isLoading } = useDepositAddress(network, userId)
 

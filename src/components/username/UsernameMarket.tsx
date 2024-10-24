@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -6,7 +7,6 @@ import useBuyUsername from '@/app/main/username/hooks/useBuyUsername'
 import useRemoveUsername from '@/app/main/username/hooks/useRemoveUsername'
 import { IMarketUsername } from '@/types/market.type'
 import { formatAddress, formatDate } from '@/utils/formatters'
-import { userId } from '@/utils/userId'
 import Button from '../ui/Button'
 import Error from '../ui/Error'
 import TonIcon from '../ui/icons/TonIcon'
@@ -24,6 +24,8 @@ const UsernameMarket: FC<Props> = ({
 	createdAt,
 	ownerId,
 }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 
 	const user = useUser(userId)

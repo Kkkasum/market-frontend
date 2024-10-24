@@ -1,9 +1,9 @@
+import WebApp from '@twa-dev/sdk'
 import { FC } from 'react'
 
 import useInstantSellPrice from '@/app/main/market/hooks/useInstantSellPrice'
 import useInstantSellUsername from '@/app/main/username/hooks/useInstantSellUsername'
 import { InstantSellAsset } from '@/types/market.type'
-import { userId } from '@/utils/userId'
 import Button from '../ui/Button'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
@@ -20,6 +20,8 @@ const InstantSellUsernameModal: FC<Props> = ({
 	setModalOpen,
 	username,
 }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const { data, isLoading } = useInstantSellPrice(InstantSellAsset.USERNAME)
 	const { instantSellUsername, isSellPending, isError } =
 		useInstantSellUsername(userId, username)

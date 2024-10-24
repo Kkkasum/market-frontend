@@ -1,14 +1,16 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
-import { userId } from '@/utils/userId'
 import useUser from './hooks/useUser'
 
 export default function Page() {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const { data, isLoading, isFetching } = useUser(userId)
 	const [showLoader, setShowLoader] = useState<boolean>(true)
 

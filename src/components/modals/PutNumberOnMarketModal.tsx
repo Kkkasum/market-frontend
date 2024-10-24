@@ -1,10 +1,10 @@
+import WebApp from '@twa-dev/sdk'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
 import useAddNumber from '@/app/main/number/hooks/useAddNumber'
 import { formatNumber } from '@/utils/formatters'
-import { userId } from '@/utils/userId'
 import Button from '../ui/Button'
 import TonIcon from '../ui/icons/TonIcon'
 import Input from '../ui/Input'
@@ -27,6 +27,8 @@ const PutNumberOnMarketModal: FC<Props> = ({
 	numberId,
 	number,
 }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const { addNumber, isAddPending } = useAddNumber(userId, number)
 
 	const {

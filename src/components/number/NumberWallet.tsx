@@ -1,9 +1,9 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { INumberWithOwner } from '@/types/number.type'
 import { formatAddress, formatNumber } from '@/utils/formatters'
-import { userId } from '@/utils/userId'
 import InstantSellNumberModal from '../modals/InstantSellNumberModal'
 import PutNumberOnMarketModal from '../modals/PutNumberOnMarketModal'
 import Button from '../ui/Button'
@@ -12,6 +12,8 @@ import { StatusWallet } from '../ui/Status'
 interface Props extends INumberWithOwner {}
 
 const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [instantSellModalOpen, setInstantSellModalOpen] =
 		useState<boolean>(false)
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =

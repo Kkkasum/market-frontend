@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { useRouter } from 'next/navigation'
 
 import Button from '@/components/ui/Button'
@@ -7,10 +8,11 @@ import NumberIcon from '@/components/ui/icons/NumberIcon'
 import UsernameIcon from '@/components/ui/icons/UsernameIcon'
 import WalletIcon from '@/components/ui/icons/WalletIcon'
 import { ROUTE_MARKET_NUMBERS } from '@/routes'
-import { userId } from '@/utils/userId'
 import useAddUser from './hooks/useAddUser'
 
 export default function Page() {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const { push } = useRouter()
 	const { addUser } = useAddUser(userId)
 

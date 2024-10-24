@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
@@ -9,7 +10,6 @@ import TonForm from '@/components/user/withdraw/TonForm'
 import UsdtForm from '@/components/user/withdraw/UsdtForm'
 import UsernameForm from '@/components/user/withdraw/UsernameForm'
 import { Asset } from '@/types/user.type'
-import { userId } from '@/utils/userId'
 import useUser from '../user/hooks/useUser'
 
 export interface IForm {
@@ -18,6 +18,8 @@ export interface IForm {
 }
 
 export default function Page() {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [asset, setAsset] = useState<Asset>()
 	const { data, isLoading } = useUser(userId)
 

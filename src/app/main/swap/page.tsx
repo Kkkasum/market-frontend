@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -13,7 +14,6 @@ import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import LogoLoader from '@/components/ui/LogoLoader'
-import { userId } from '@/utils/userId'
 import useUser from '../user/hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
@@ -24,6 +24,8 @@ interface IForm {
 }
 
 export default function Page() {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')
 	const [toToken, setToToken] = useState<string>('USDT')

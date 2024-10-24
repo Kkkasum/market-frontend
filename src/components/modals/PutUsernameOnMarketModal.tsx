@@ -1,9 +1,9 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
 import useAddUsername from '@/app/main/username/hooks/useAddUsername'
-import { userId } from '@/utils/userId'
 import Button from '../ui/Button'
 import TonIcon from '../ui/icons/TonIcon'
 import Input from '../ui/Input'
@@ -26,6 +26,8 @@ const PutUsernameOnMarketModal: FC<Props> = ({
 	usernameId,
 	username,
 }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const { addUsername, isAddPending } = useAddUsername(userId, username)
 
 	const {

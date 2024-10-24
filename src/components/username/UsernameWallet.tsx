@@ -1,9 +1,9 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { IUsernameWithOwner } from '@/types/username.type'
 import { formatAddress } from '@/utils/formatters'
-import { userId } from '@/utils/userId'
 import InstantSellUsernameModal from '../modals/InstantSellUsernameModal'
 import PutUsernameOnMarketModal from '../modals/PutUsernameOnMarketModal'
 import Button from '../ui/Button'
@@ -12,6 +12,8 @@ import { StatusWallet } from '../ui/Status'
 interface Props extends IUsernameWithOwner {}
 
 const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
+	const userId = WebApp.initDataUnsafe.user?.id || 1
+
 	const [instantSellModalOpen, setInstantSellModalOpen] =
 		useState<boolean>(false)
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
