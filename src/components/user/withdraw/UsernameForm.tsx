@@ -1,4 +1,4 @@
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -19,7 +19,7 @@ interface IForm {
 }
 
 const UsernameForm: FC<Props> = ({ usernames }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	const userId = parseInitData(1).user?.id || 1
 
 	const [username, setUsername] = useState<string>()
 	const { withdrawUsername, isWithdrawPending } = useWithdrawUsername(userId)

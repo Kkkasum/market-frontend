@@ -1,6 +1,6 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -9,7 +9,10 @@ import { ROUTE_MARKET_NUMBERS, ROUTE_ONBOARDING } from '@/routes'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = parseInitData(1).user?.id || 1
+	}
 
 	const { push } = useRouter()
 	const { data, isLoading } = useUser(userId)

@@ -1,6 +1,6 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -24,7 +24,10 @@ interface IForm {
 }
 
 export default function Page() {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = parseInitData(1).user?.id || 1
+	}
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')

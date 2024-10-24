@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Albert_Sans } from 'next/font/google'
 
-import Provider from './providers'
+import Provider from './provider'
 
 import './globals.css'
 

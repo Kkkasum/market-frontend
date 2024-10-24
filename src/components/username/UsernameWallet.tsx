@@ -1,4 +1,4 @@
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -12,7 +12,7 @@ import { StatusWallet } from '../ui/Status'
 interface Props extends IUsernameWithOwner {}
 
 const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	const userId = parseInitData(1).user?.id || 1
 
 	const [instantSellModalOpen, setInstantSellModalOpen] =
 		useState<boolean>(false)

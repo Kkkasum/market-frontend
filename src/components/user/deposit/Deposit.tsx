@@ -1,4 +1,4 @@
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { FC, useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Deposit: FC<Props> = ({ asset, network }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	const userId = parseInitData(1).user?.id || 1
 
 	const [isCopied, setIsCopied] = useState<boolean>(false)
 	const { data, isLoading } = useDepositAddress(network, userId)

@@ -1,4 +1,4 @@
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -26,7 +26,7 @@ const PutUsernameOnMarketModal: FC<Props> = ({
 	usernameId,
 	username,
 }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	const userId = parseInitData(1).user?.id || 1
 
 	const { addUsername, isAddPending } = useAddUsername(userId, username)
 

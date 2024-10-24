@@ -1,6 +1,6 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -19,7 +19,10 @@ import { sortByTime } from '@/utils/sortByTime'
 import useUserHistory from '../user/hooks/useUserHistory'
 
 export default function Page() {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = parseInitData(1).user?.id || 1
+	}
 
 	const { data, isLoading } = useUserHistory(userId)
 

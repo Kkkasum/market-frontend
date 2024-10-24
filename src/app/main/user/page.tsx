@@ -1,6 +1,6 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { useEffect, useState } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
@@ -9,9 +9,12 @@ import UserTabs from '@/components/user/UserTabs'
 import useUser from './hooks/useUser'
 
 export default function Page() {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = parseInitData(1).user?.id || 1
+	}
 
-	const { data, isLoading, isFetching } = useUser(userId)
+	const { data, isFetching } = useUser(userId)
 	const [showLoader, setShowLoader] = useState<boolean>(true)
 
 	useEffect(() => {

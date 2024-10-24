@@ -1,4 +1,4 @@
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { FC } from 'react'
 
 import useInstantSellPrice from '@/app/main/market/hooks/useInstantSellPrice'
@@ -21,7 +21,7 @@ const InstantSellNumberModal: FC<Props> = ({
 	setModalOpen,
 	number,
 }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	const userId = parseInitData(1).user?.id || 1
 
 	const { data, isLoading } = useInstantSellPrice(InstantSellAsset.NUMBER)
 	const { instantSellNumber, isSellPending, isError } = useInstantSellNumber(

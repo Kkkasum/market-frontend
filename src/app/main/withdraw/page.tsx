@@ -1,6 +1,6 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
+import { parseInitData } from '@telegram-apps/sdk-react'
 import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
@@ -18,7 +18,10 @@ export interface IForm {
 }
 
 export default function Page() {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = parseInitData(1).user?.id || 1
+	}
 
 	const [asset, setAsset] = useState<Asset>()
 	const { data, isLoading } = useUser(userId)
