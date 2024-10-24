@@ -1,4 +1,3 @@
-import WebApp from '@twa-dev/sdk'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -12,6 +11,7 @@ import { NETWORK } from '@/types/deposit.type'
 import { validUsdtAddress } from '@/utils/validAddress'
 
 interface Props {
+	userId: number
 	usdtBalance: number
 }
 
@@ -20,9 +20,7 @@ interface IForm {
 	amount: number
 }
 
-const UsdtForm: FC<Props> = ({ usdtBalance }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
-
+const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 	const { data, isLoading } = useFee(NETWORK.TRON)
 	const { withdrawUsdt, isWithdrawPending } = useWithdrawUsdt(userId)
 	const {

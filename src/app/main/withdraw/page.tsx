@@ -38,20 +38,23 @@ export default function Page() {
 			{asset &&
 				(asset === Asset.NUMBER ? (
 					data.numbers ? (
-						<NumberForm numbers={data.numbers} />
+						<NumberForm userId={userId} numbers={data.numbers} />
 					) : (
 						<span>You have no numbers yet</span>
 					)
 				) : asset === Asset.USERNAME ? (
 					data.usernames ? (
-						<UsernameForm usernames={data.usernames} />
+						<UsernameForm
+							userId={userId}
+							usernames={data.usernames}
+						/>
 					) : (
 						<span>You have no usernames yet</span>
 					)
 				) : asset === Asset.TON ? (
-					<TonForm tonBalance={data.tonBalance} />
+					<TonForm userId={userId} tonBalance={data.tonBalance} />
 				) : (
-					<UsdtForm usdtBalance={data.usdtBalance} />
+					<UsdtForm userId={userId} usdtBalance={data.usdtBalance} />
 				))}
 		</div>
 	) : (
