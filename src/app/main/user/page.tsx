@@ -1,16 +1,27 @@
 'use client'
 
-import Loader from '@/components/ui/Loader'
+import { useEffect, useState } from 'react'
+
+import LogoLoader from '@/components/ui/LogoLoader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
 import { userId } from '@/utils/userId'
 import useUser from './hooks/useUser'
 
 export default function Page() {
-	const { data, isLoading } = useUser(userId)
+	const { data, isLoading, isFetching } = useUser(userId)
+	const [showLoader, setShowLoader] = useState<boolean>(true)
 
-	return isLoading ? (
-		<Loader className='fixed bottom-0 left-0 w-full h-full' />
+	useEffect(() => {
+		if (isFetching) {
+			setTimeout(() => {
+				setShowLoader(false)
+			}, 1000)
+		}
+	}, [isFetching])
+
+	return showLoader ? (
+		<LogoLoader />
 	) : (
 		<div className='flex flex-col justify-center w-full mb-5 gap-5'>
 			<>

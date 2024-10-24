@@ -1,5 +1,7 @@
 import { axiosBase } from '@/api/interceptors'
+import { NETWORK } from '@/types/deposit.type'
 import {
+	IFeeResponse,
 	IWithdrawNumberRequest,
 	IWithdrawTonRequest,
 	IWithdrawUsdtRequest,
@@ -7,6 +9,13 @@ import {
 } from '@/types/withdrawal.type'
 
 const WithdrawalService = {
+	async getFee(network: NETWORK) {
+		const response = await axiosBase.get<IFeeResponse>('/withdrawal/fee', {
+			params: { network: network },
+		})
+		return response.data
+	},
+
 	async withdrawUsdt(data: IWithdrawUsdtRequest) {
 		const response = await axiosBase.post('/withdrawal/usdt', data)
 		return response.status

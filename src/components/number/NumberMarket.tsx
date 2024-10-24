@@ -26,7 +26,7 @@ const NumberMarket: FC<Props> = ({
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 
 	const user = useUser(userId)
-	const { buyNumber, isBuyPending } = useBuyNumber(userId, number)
+	const { buyNumber, isBuyPending, isError } = useBuyNumber(userId, number)
 	const { removeNumber, isRemovePending } = useRemoveNumber(userId, number)
 
 	return (
@@ -75,7 +75,7 @@ const NumberMarket: FC<Props> = ({
 			{userId === ownerId ? (
 				<div
 					className={twMerge(
-						'flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full',
+						'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold',
 						modalOpen && 'blurred'
 					)}
 				>
@@ -91,7 +91,7 @@ const NumberMarket: FC<Props> = ({
 				<>
 					<div
 						className={twMerge(
-							'flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full',
+							'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold',
 							modalOpen && 'blurred'
 						)}
 					>
@@ -134,20 +134,29 @@ const NumberMarket: FC<Props> = ({
 
 								<Button
 									className={twMerge(
-										'w-full',
-										user.data.tonBalance < price &&
+										'w-full font-bold',
+										(user.data.tonBalance < price ||
+											isError) &&
 											'bg-red-700'
 									)}
 									disabled={
 										isBuyPending ||
-										user.data.tonBalance < price
+										user.data.tonBalance < price ||
+										isError
 									}
-									onClick={() => buyNumber()}
+									onClick={() =>
+										buyNumber({
+											userId: userId,
+											number: number,
+										})
+									}
 								>
 									{user.data.tonBalance < price ? (
 										'Insufficient funds'
 									) : isBuyPending ? (
 										<Loader size={24} />
+									) : isError ? (
+										'Insufficient funds'
 									) : (
 										'Confirm'
 									)}

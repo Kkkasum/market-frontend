@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -11,11 +12,12 @@ import Frame from '@/components/ui/Frame'
 import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
+import LogoLoader from '@/components/ui/LogoLoader'
 import { userId } from '@/utils/userId'
-import { motion } from 'framer-motion'
-import useAddSwap from '../hooks/swap/useAddSwap'
-import useTokenRate from '../hooks/swap/useTokenRate'
-import useUser from '../hooks/useUser'
+import useUser from '../user/hooks/useUser'
+import useAddSwap from './hooks/useAddSwap'
+import useIsSwapAvailable from './hooks/useIsSwapAvailable'
+import useTokenRate from './hooks/useTokenRate'
 
 interface IForm {
 	fromAmount: number
@@ -37,12 +39,13 @@ export default function Page() {
 		mode: 'onChange',
 	})
 
+	const isSwapAvailable = useIsSwapAvailable()
+	const user = useUser(userId)
 	const tokenRate = useTokenRate(
 		fromToken,
 		toToken,
 		!!getValues('fromAmount')
 	)
-	const user = useUser(userId)
 	const { addUserSwap, resetUserSwap, isAddPending, isSwapSuccess } =
 		useAddSwap(userId)
 
@@ -67,19 +70,19 @@ export default function Page() {
 
 	useEffect(() => {
 		if (!modalOpen) {
-			setToAmount(0)
 			reset()
+			setToAmount(0)
 
 			resetUserSwap()
 		}
 	}, [modalOpen])
 
 	const switchTokens = (fromToken: string, toToken: string) => {
-		setFromToken(toToken)
-		setToToken(fromToken)
-
 		reset()
 		setToAmount(0)
+
+		setFromToken(toToken)
+		setToToken(fromToken)
 	}
 
 	const changeFromToken = (token: string, fromToken: string) => {
@@ -111,8 +114,12 @@ export default function Page() {
 		})
 	}
 
-	return user.isLoading ? (
-		<Loader className='fixed bottom-0 left-0 w-full h-full' />
+	return isSwapAvailable.isLoading ? (
+		<LogoLoader />
+	) : isSwapAvailable.isError ? (
+		<span className='flex items-center justify-center fixed bottom-0 left-0 w-full h-full'>
+			Service is unavailable. Try again later
+		</span>
 	) : user.data ? (
 		<form onSubmit={handleSubmit(onFormSubmit)}>
 			<div

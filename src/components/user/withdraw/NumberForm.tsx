@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawNumber from '@/app/main/user/hooks/withdraw/useWithdrawNumber'
+import useWithdrawNumber from '@/app/main/withdraw/hooks/useWithdrawNumber'
 import NumbersDropdown from '@/components/dropdown/NumbersDropdown'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
@@ -40,7 +40,7 @@ const NumberForm: FC<Props> = ({ numbers }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-10 w-full'
+			className='flex flex-col gap-8 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -81,17 +81,19 @@ const NumberForm: FC<Props> = ({ numbers }) => {
 				<span>{errors.address?.message}</span>
 			</p>
 
-			<Button
-				className='fixed bottom-10 w-[90vw]'
-				disabled={
-					!number ||
-					!getValues('address') ||
-					!!errors.address?.message
-				}
-				type='submit'
-			>
-				Withdraw
-			</Button>
+			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
+				<Button
+					className='w-full'
+					disabled={
+						!number ||
+						!getValues('address') ||
+						!!errors.address?.message
+					}
+					type='submit'
+				>
+					Withdraw
+				</Button>
+			</div>
 		</form>
 	)
 }

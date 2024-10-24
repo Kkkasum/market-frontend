@@ -1,18 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import MarketService from '@/services/market.service'
-import { IBuyNumberRequest } from '@/types/market.type'
+import { IInstantSellNumberRequest } from '@/types/market.type'
 
-export default function useBuyNumber(userId: number, number: string) {
+export default function useInstantSellNumber(userId: number, number: string) {
 	const queryClient = useQueryClient()
 
 	const {
-		mutate: buyNumber,
-		isPending: isBuyPending,
+		mutate: instantSellNumber,
+		isPending: isSellPending,
 		isError,
 	} = useMutation({
-		mutationKey: ['buy-number', { userId: userId, number: number }],
-		mutationFn: (data: IBuyNumberRequest) => MarketService.buyNumber(data),
+		mutationKey: ['instant-sell', { number: number }],
+		mutationFn: (data: IInstantSellNumberRequest) =>
+			MarketService.instantSellNumber(data),
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: ['user', { userId: userId }],
@@ -23,5 +24,5 @@ export default function useBuyNumber(userId: number, number: string) {
 		},
 	})
 
-	return { buyNumber, isBuyPending, isError }
+	return { instantSellNumber, isSellPending, isError }
 }

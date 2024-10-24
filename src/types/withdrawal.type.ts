@@ -1,3 +1,7 @@
+export interface IFeeResponse {
+	fee: number
+}
+
 interface IWithdrawRequest {
 	userId: number
 	address: string

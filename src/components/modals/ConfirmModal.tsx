@@ -45,7 +45,11 @@ const ConfirmModal: FC<Props> = ({
 				</p>
 			</div>
 
-			<Button className='w-full' disabled={false} onClick={buyAsset}>
+			<Button
+				className='w-full font-bold'
+				disabled={false}
+				onClick={buyAsset}
+			>
 				Confirm
 			</Button>
 		</Modal>

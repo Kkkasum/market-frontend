@@ -10,7 +10,7 @@ import UsdtForm from '@/components/user/withdraw/UsdtForm'
 import UsernameForm from '@/components/user/withdraw/UsernameForm'
 import { Asset } from '@/types/user.type'
 import { userId } from '@/utils/userId'
-import useUser from '../hooks/useUser'
+import useUser from '../user/hooks/useUser'
 
 export interface IForm {
 	address: string

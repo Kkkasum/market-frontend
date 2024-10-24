@@ -27,7 +27,10 @@ const UsernameMarket: FC<Props> = ({
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 
 	const user = useUser(userId)
-	const { buyUsername, isBuyPending } = useBuyUsername(userId, username)
+	const { buyUsername, isBuyPending, isError } = useBuyUsername(
+		userId,
+		username
+	)
 	const { removeUsername, isRemovePending } = useRemoveUsername(
 		userId,
 		username
@@ -55,7 +58,7 @@ const UsernameMarket: FC<Props> = ({
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`http://tonscan.com/address/${address}`}
+						href={`https://tonscan.com/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}
@@ -79,7 +82,7 @@ const UsernameMarket: FC<Props> = ({
 			{userId === ownerId ? (
 				<div
 					className={twMerge(
-						'flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full',
+						'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 gap-5 bg-[#1A2026] font-bold',
 						modalOpen && 'blurred'
 					)}
 				>

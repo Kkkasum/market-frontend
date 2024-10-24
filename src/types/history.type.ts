@@ -1,9 +1,3 @@
-export enum TxKind {
-	DEPOSIT = 'DEPOSIT',
-	WITHDRAW = 'WITHDRAW',
-	SWAP = 'SWAP',
-}
-
 export interface ITx {
 	id: number
 	createdAt: string

@@ -77,7 +77,7 @@ const SwapModal: FC<Props> = ({
 			<Button
 				type='submit'
 				className={twMerge(
-					'w-full',
+					'w-full font-bold',
 					isSuccess && 'border-green bg-green/30'
 				)}
 				disabled={showLoader || isSuccess}

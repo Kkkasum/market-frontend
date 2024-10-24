@@ -2,10 +2,12 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawTon from '@/app/main/user/hooks/withdraw/useWithdrawTon'
+import useFee from '@/app/main/withdraw/hooks/useFee'
+import useWithdrawTon from '@/app/main/withdraw/hooks/useWithdrawTon'
 import Button from '@/components/ui/Button'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
+import { NETWORK } from '@/types/deposit.type'
 import { userId } from '@/utils/userId'
 import { validTonAddress } from '@/utils/validAddress'
 
@@ -19,6 +21,7 @@ interface IForm {
 }
 
 const TonForm: FC<Props> = ({ tonBalance }) => {
+	const { data, isLoading } = useFee(NETWORK.TON)
 	const { withdrawTon, isWithdrawPending } = useWithdrawTon(userId)
 	const {
 		register,
@@ -37,7 +40,7 @@ const TonForm: FC<Props> = ({ tonBalance }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-10 w-full'
+			className='flex flex-col gap-8 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -98,8 +101,13 @@ const TonForm: FC<Props> = ({ tonBalance }) => {
 				</Frame>
 
 				<p className='flex items-center justify-between px-1'>
-					<span>Balance:</span>
+					<span>Balance</span>
 					<span>{tonBalance.toFixed(2)}</span>
+				</p>
+
+				<p className='flex items-center justify-between px-1'>
+					<span>Withdrawal Fees</span>
+					<span>{data?.fee} TON</span>
 				</p>
 			</div>
 
@@ -108,18 +116,20 @@ const TonForm: FC<Props> = ({ tonBalance }) => {
 				<span>{errors.amount?.message}</span>
 			</p>
 
-			<Button
-				className='fixed bottom-10 w-[90vw]'
-				disabled={
-					!getValues('address') ||
-					!getValues('amount') ||
-					!!errors.address?.message ||
-					!!errors.amount?.message
-				}
-				type='submit'
-			>
-				Withdraw
-			</Button>
+			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
+				<Button
+					className='w-full'
+					disabled={
+						!getValues('address') ||
+						!getValues('amount') ||
+						!!errors.address?.message ||
+						!!errors.amount?.message
+					}
+					type='submit'
+				>
+					Withdraw
+				</Button>
+			</div>
 		</form>
 	)
 }

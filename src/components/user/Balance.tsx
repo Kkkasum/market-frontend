@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { FC } from 'react'
 
 import {
-	ROUTE_USER_DEPOSIT,
-	ROUTE_USER_HISTORY,
-	ROUTE_USER_SWAP,
-	ROUTE_USER_WITHDRAW,
+	ROUTE_DEPOSIT,
+	ROUTE_HISTORY,
+	ROUTE_SWAP,
+	ROUTE_WITHDRAW,
 } from '@/routes'
 import { IUserWallet } from '@/types/user.type'
 import TonIcon from '../ui/icons/TonIcon'
@@ -24,10 +24,7 @@ const Balance: FC<Props> = ({ tonBalance, tonUsdBalance, usdtBalance }) => {
 	return (
 		<>
 			<div className='flex flex-col items-center justify-center gap-8 bg-gradient-to-r from-ocean-blue-from to-ocean-blue-to rounded-lg h-52 relative'>
-				<Link
-					href={ROUTE_USER_HISTORY}
-					className='absolute top-2 left-2'
-				>
+				<Link href={ROUTE_HISTORY} className='absolute top-2 left-2'>
 					<HistoryIcon />
 				</Link>
 
@@ -44,7 +41,7 @@ const Balance: FC<Props> = ({ tonBalance, tonUsdBalance, usdtBalance }) => {
 
 				<div className='flex flex-row items-center justify-center gap-8 text-sm'>
 					<Link
-						href={ROUTE_USER_DEPOSIT}
+						href={ROUTE_DEPOSIT}
 						className='flex flex-col items-center'
 					>
 						<DepositIcon />
@@ -52,7 +49,7 @@ const Balance: FC<Props> = ({ tonBalance, tonUsdBalance, usdtBalance }) => {
 					</Link>
 
 					<Link
-						href={ROUTE_USER_WITHDRAW}
+						href={ROUTE_WITHDRAW}
 						className='flex flex-col items-center'
 					>
 						<WithdrawIcon />
@@ -60,7 +57,7 @@ const Balance: FC<Props> = ({ tonBalance, tonUsdBalance, usdtBalance }) => {
 					</Link>
 
 					<Link
-						href={ROUTE_USER_SWAP}
+						href={ROUTE_SWAP}
 						className='flex flex-col items-center'
 					>
 						<SwapIcon />

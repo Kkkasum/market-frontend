@@ -5,7 +5,11 @@ import MarketService from '@/services/market.service'
 export default function useBuyUsername(userId: number, username: string) {
 	const queryClient = useQueryClient()
 
-	const { mutate: buyUsername, isPending: isBuyPending } = useMutation({
+	const {
+		mutate: buyUsername,
+		isPending: isBuyPending,
+		isError,
+	} = useMutation({
 		mutationKey: ['buy-username', { userId: userId, username: username }],
 		mutationFn: () =>
 			MarketService.buyUsername({ userId: userId, username: username }),
@@ -19,5 +23,5 @@ export default function useBuyUsername(userId: number, username: string) {
 		},
 	})
 
-	return { buyUsername, isBuyPending }
+	return { buyUsername, isBuyPending, isError }
 }

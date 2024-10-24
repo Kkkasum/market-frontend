@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
-import useWithdrawUsdt from '@/app/main/user/hooks/withdraw/useWithdrawUsdt'
+import useFee from '@/app/main/withdraw/hooks/useFee'
+import useWithdrawUsdt from '@/app/main/withdraw/hooks/useWithdrawUsdt'
 import Button from '@/components/ui/Button'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
+import { NETWORK } from '@/types/deposit.type'
 import { userId } from '@/utils/userId'
 import { validUsdtAddress } from '@/utils/validAddress'
 import { twMerge } from 'tailwind-merge'
@@ -19,6 +21,7 @@ interface IForm {
 }
 
 const UsdtForm: FC<Props> = ({ usdtBalance }) => {
+	const { data, isLoading } = useFee(NETWORK.TRON)
 	const { withdrawUsdt, isWithdrawPending } = useWithdrawUsdt(userId)
 	const {
 		register,
@@ -37,7 +40,7 @@ const UsdtForm: FC<Props> = ({ usdtBalance }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-10 w-full'
+			className='flex flex-col gap-8 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -97,8 +100,13 @@ const UsdtForm: FC<Props> = ({ usdtBalance }) => {
 				</Frame>
 
 				<p className='flex items-center justify-between px-1'>
-					<span>Balance:</span>
+					<span>Balance</span>
 					<span>{usdtBalance.toFixed(2)}</span>
+				</p>
+
+				<p className='flex items-center justify-between px-1'>
+					<span>Withdrawal Fees</span>
+					<span>{data?.fee} USDT</span>
 				</p>
 			</div>
 
@@ -107,18 +115,21 @@ const UsdtForm: FC<Props> = ({ usdtBalance }) => {
 				<span>{errors.amount?.message}</span>
 			</p>
 
-			<Button
-				className='fixed bottom-10 w-[90vw]'
-				disabled={
-					!getValues('address') ||
-					!getValues('amount') ||
-					!!errors.address?.message ||
-					!!errors.amount?.message
-				}
-				type='submit'
-			>
-				Withdraw
-			</Button>
+			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
+				<Button
+					className='w-full'
+					disabled={
+						isLoading ||
+						!getValues('address') ||
+						!getValues('amount') ||
+						!!errors.address?.message ||
+						!!errors.amount?.message
+					}
+					type='submit'
+				>
+					Withdraw
+				</Button>
+			</div>
 		</form>
 	)
 }

@@ -1,4 +1,4 @@
-import useTokenRate from '@/app/main/user/hooks/swap/useTokenRate'
+import useTokenRate from '@/app/main/user/swap/hooks/useTokenRate'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import { FC } from 'react'

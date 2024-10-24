@@ -76,7 +76,11 @@ const PutNumberOnMarketModal: FC<Props> = ({
 					</div>
 				</div>
 
-				<Button type='submit' className='w-full' disabled={false}>
+				<Button
+					type='submit'
+					className='w-full font-bold'
+					disabled={false}
+				>
 					Confirm
 				</Button>
 			</form>

@@ -64,12 +64,12 @@ const DepositTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 				<p className='flex items-center justify-between font-medium'>
 					<span>Tx hash</span>
 					<a
-						// href={
-						// 	tx.token === 'TON'
-						// 		? `https://testnet.tonscan.com/tx/${tx.txHash}`
-						// 		: `https://tronscan.org/#/transaction/${tx.txHash}`
-						// }
-						// target='_blank'
+						href={
+							tx.token === 'TON'
+								? `https://testnet.tonscan.com/tx/${tx.txHash}`
+								: `https://oklink.com/trx/tx/${tx.txHash}`
+						}
+						target='_blank'
 						className='hover:text-blue cursor-pointer transition-colors duration-300'
 					>
 						{formatTxHash(tx.txHash)}

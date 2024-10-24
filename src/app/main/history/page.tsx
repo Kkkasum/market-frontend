@@ -16,7 +16,7 @@ import { IDepositTx, ISwapTx, IWithdrawalTx } from '@/types/history.type'
 import { TimeSort, TxFilter } from '@/types/user.type'
 import { sortByTime } from '@/utils/sortByTime'
 import { userId } from '@/utils/userId'
-import useUserHistory from '../hooks/useUserHistory'
+import useUserHistory from '../user/hooks/useUserHistory'
 
 export default function Page() {
 	const { data, isLoading } = useUserHistory(userId)

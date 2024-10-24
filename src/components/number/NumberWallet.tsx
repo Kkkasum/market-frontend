@@ -2,10 +2,9 @@ import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { INumberWithOwner } from '@/types/number.type'
-import { Asset } from '@/types/user.type'
 import { formatAddress, formatNumber } from '@/utils/formatters'
 import { userId } from '@/utils/userId'
-import InstantSellModal from '../modals/InstantSellModal'
+import InstantSellNumberModal from '../modals/InstantSellNumberModal'
 import PutNumberOnMarketModal from '../modals/PutNumberOnMarketModal'
 import Button from '../ui/Button'
 import { StatusWallet } from '../ui/Status'
@@ -52,12 +51,13 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 				<>
 					<div
 						className={twMerge(
-							'flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full',
+							'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 gap-5 bg-[#1A2026] font-bold',
 							(instantSellModalOpen || putOnMarketModalOpen) &&
 								'blurred'
 						)}
 					>
 						<Button
+							className='w-1/2'
 							disabled={false}
 							onClick={() => setInstantSellModalOpen(true)}
 						>
@@ -65,6 +65,7 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 						</Button>
 
 						<Button
+							className='w-1/2'
 							disabled={false}
 							onClick={() => setPutOnMarketModalOpen(true)}
 						>
@@ -72,11 +73,10 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 						</Button>
 					</div>
 
-					<InstantSellModal
+					<InstantSellNumberModal
 						modalOpen={instantSellModalOpen}
 						setModalOpen={setInstantSellModalOpen}
-						asset={Asset.NUMBER}
-						assetValue={formatNumber(number)}
+						number={number}
 					/>
 
 					<PutNumberOnMarketModal

@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawUsername from '@/app/main/user/hooks/withdraw/useWithdrawUsername'
+import useWithdrawUsername from '@/app/main/withdraw/hooks/useWithdrawUsername'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { IUsername } from '@/types/username.type'
@@ -40,7 +40,7 @@ const UsernameForm: FC<Props> = ({ usernames }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-10 w-full'
+			className='flex flex-col gap-8 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -81,17 +81,19 @@ const UsernameForm: FC<Props> = ({ usernames }) => {
 				<span>{errors.address?.message}</span>
 			</p>
 
-			<Button
-				className='fixed bottom-10 w-[90vw]'
-				disabled={
-					!username ||
-					!getValues('address') ||
-					!!errors.address?.message
-				}
-				type='submit'
-			>
-				Withdraw
-			</Button>
+			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
+				<Button
+					className='w-full'
+					disabled={
+						!username ||
+						!getValues('address') ||
+						!!errors.address?.message
+					}
+					type='submit'
+				>
+					Withdraw
+				</Button>
+			</div>
 		</form>
 	)
 }
