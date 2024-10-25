@@ -11,7 +11,7 @@ export default function useInstantSellNumber(userId: number, number: string) {
 		isPending: isSellPending,
 		isError,
 	} = useMutation({
-		mutationKey: ['instant-sell', { number: number }],
+		mutationKey: ['instant-sell-number', { number: number }],
 		mutationFn: (data: IInstantSellNumberRequest) =>
 			MarketService.instantSellNumber(data),
 		onSuccess() {

@@ -1,11 +1,6 @@
 import { INumberWithOwner } from './number.type'
 import { IUsernameWithOwner } from './username.type'
 
-export enum InstantSellAsset {
-	NUMBER = 'NUMBER',
-	USERNAME = 'USERNAME',
-}
-
 export interface IMarketAsset {
 	price: number
 	createdAt: string
@@ -23,7 +18,7 @@ export interface IMarketUsernamesResponse {
 	usernames: IMarketUsername[]
 }
 
-export interface IInstantSellPriceResponse {
+export interface IInstantSellNumberPriceResponse {
 	price: string
 }
 
@@ -52,5 +47,3 @@ export interface IBuyUsernameRequest {
 }
 
 export interface IInstantSellNumberRequest extends IBuyNumberRequest {}
-
-export interface IInstantSellUsernameRequest extends IBuyUsernameRequest {}

@@ -4,7 +4,6 @@ import { twMerge } from 'tailwind-merge'
 
 import { IUsernameWithOwner } from '@/types/username.type'
 import { formatAddress } from '@/utils/formatters'
-import InstantSellUsernameModal from '../modals/InstantSellUsernameModal'
 import PutUsernameOnMarketModal from '../modals/PutUsernameOnMarketModal'
 import Button from '../ui/Button'
 import { StatusWallet } from '../ui/Status'
@@ -14,8 +13,6 @@ interface Props extends IUsernameWithOwner {}
 const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
 	const userId = WebApp.initDataUnsafe.user?.id || 1
 
-	const [instantSellModalOpen, setInstantSellModalOpen] =
-		useState<boolean>(false)
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
 		useState<boolean>(false)
 
@@ -24,7 +21,7 @@ const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
 			<div
 				className={twMerge(
 					'flex flex-col items-center justify-center gap-5 font-semibold',
-					(instantSellModalOpen || putOnMarketModalOpen) && 'blurred'
+					putOnMarketModalOpen && 'blurred'
 				)}
 			>
 				<p className='flex items-center gap-2'>
@@ -54,32 +51,17 @@ const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
 					<div
 						className={twMerge(
 							'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 gap-5 bg-[#1A2026] font-bold',
-							(instantSellModalOpen || putOnMarketModalOpen) &&
-								'blurred'
+							putOnMarketModalOpen && 'blurred'
 						)}
 					>
 						<Button
-							className='w-1/2'
-							disabled={false}
-							onClick={() => setInstantSellModalOpen(true)}
-						>
-							Instant sell
-						</Button>
-
-						<Button
-							className='w-1/2'
+							className='w-full'
 							disabled={false}
 							onClick={() => setPutOnMarketModalOpen(true)}
 						>
 							Put on market
 						</Button>
 					</div>
-
-					<InstantSellUsernameModal
-						modalOpen={instantSellModalOpen}
-						setModalOpen={setInstantSellModalOpen}
-						username={username}
-					/>
 
 					<PutUsernameOnMarketModal
 						modalOpen={putOnMarketModalOpen}

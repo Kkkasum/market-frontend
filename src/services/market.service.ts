@@ -4,12 +4,10 @@ import {
 	IAddMarketUsernameRequest,
 	IBuyNumberRequest,
 	IBuyUsernameRequest,
+	IInstantSellNumberPriceResponse,
 	IInstantSellNumberRequest,
-	IInstantSellPriceResponse,
-	IInstantSellUsernameRequest,
 	IMarketNumbersResponse,
 	IMarketUsernamesResponse,
-	InstantSellAsset,
 } from '@/types/market.type'
 
 const MarketService = {
@@ -27,10 +25,9 @@ const MarketService = {
 		return response.data
 	},
 
-	async getInstantSellPrice(asset: InstantSellAsset) {
-		const response = await axiosBase.get<IInstantSellPriceResponse>(
-			'/market/instant-sell/price',
-			{ params: { asset: asset } }
+	async getInstantSellNumberPrice() {
+		const response = await axiosBase.get<IInstantSellNumberPriceResponse>(
+			'/market/instant-sell-number/price'
 		)
 		return response.data
 	},
@@ -71,15 +68,7 @@ const MarketService = {
 
 	async instantSellNumber(data: IInstantSellNumberRequest) {
 		const response = await axiosBase.post(
-			'/market/instant-sell/number',
-			data
-		)
-		return response.status
-	},
-
-	async instantSellUsername(data: IInstantSellUsernameRequest) {
-		const response = await axiosBase.post(
-			'/market/instant-sell/username',
+			'/market/instant-sell-number',
 			data
 		)
 		return response.status
