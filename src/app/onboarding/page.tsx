@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button'
 import NumberIcon from '@/components/ui/icons/NumberIcon'
 import UsernameIcon from '@/components/ui/icons/UsernameIcon'
 import WalletIcon from '@/components/ui/icons/WalletIcon'
-import { ROUTE_MARKET_NUMBERS } from '@/routes'
+import { ROUTE_USER } from '@/routes'
 import useAddUser from './hooks/useAddUser'
 
 export default function Page() {
@@ -21,7 +21,7 @@ export default function Page() {
 
 	const onClickStart = async () => {
 		await addUser({ userId: userId })
-		push(ROUTE_MARKET_NUMBERS)
+		push(ROUTE_USER)
 	}
 
 	return (

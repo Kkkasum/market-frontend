@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
-import { ROUTE_MARKET_NUMBERS, ROUTE_ONBOARDING } from '@/routes'
+import { ROUTE_ONBOARDING, ROUTE_USER } from '@/routes'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
@@ -21,7 +21,7 @@ export default function Page() {
 		if (!isLoading) {
 			setTimeout(() => {
 				if (data) {
-					push(ROUTE_MARKET_NUMBERS)
+					push(ROUTE_USER)
 				} else {
 					push(ROUTE_ONBOARDING)
 				}

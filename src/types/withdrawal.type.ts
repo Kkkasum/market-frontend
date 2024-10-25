@@ -1,5 +1,5 @@
 export interface IFeeResponse {
-	fee: number
+	fee: string
 }
 
 interface IWithdrawRequest {
