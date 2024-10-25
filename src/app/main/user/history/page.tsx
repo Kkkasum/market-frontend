@@ -16,7 +16,7 @@ import Loader from '@/components/ui/Loader'
 import { IDepositTx, ISwapTx, IWithdrawalTx } from '@/types/history.type'
 import { TimeSort, TxFilter } from '@/types/user.type'
 import { sortByTime } from '@/utils/sortByTime'
-import useUserHistory from '../user/hooks/useUserHistory'
+import useUserHistory from '../hooks/useUserHistory'
 
 export default function Page() {
 	let userId = 1

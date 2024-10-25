@@ -2,7 +2,7 @@ import WebApp from '@twa-dev/sdk'
 import { FC, useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 
-import useDepositAddress from '@/app/main/deposit/hooks/useDepositAddress'
+import useDepositAddress from '@/app/main/user/deposit/hooks/useDepositAddress'
 import Button from '@/components/ui/Button'
 import CheckIcon from '@/components/ui/icons/CheckIcon'
 import CopyIcon from '@/components/ui/icons/CopyIcon'

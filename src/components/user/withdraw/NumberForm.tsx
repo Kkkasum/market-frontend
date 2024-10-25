@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawNumber from '@/app/main/withdraw/hooks/useWithdrawNumber'
+import useWithdrawNumber from '@/app/main/user/withdraw/hooks/useWithdrawNumber'
 import NumbersDropdown from '@/components/dropdown/NumbersDropdown'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'

@@ -14,7 +14,7 @@ import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import LogoLoader from '@/components/ui/LogoLoader'
-import useUser from '../user/hooks/useUser'
+import useUser from '../hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
 import useTokenRate from './hooks/useTokenRate'
@@ -210,23 +210,24 @@ export default function Page() {
 				)}
 			</div>
 
-			<Button
-				className={twMerge(
-					'fixed bottom-10 w-[90vw]',
-					modalOpen && 'blurred',
-					!!errors.fromAmount?.message &&
-						'border-red-600 bg-red-600/30'
-				)}
-				disabled={
-					!getValues('fromAmount') || !!errors.fromAmount?.message
-				}
-				onClick={e => {
-					e.preventDefault()
-					setModalOpen(true)
-				}}
-			>
-				{content}
-			</Button>
+			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
+				<Button
+					className={twMerge(
+						'w-full',
+						!!errors.fromAmount?.message &&
+							'border-red-600 bg-red-600/30'
+					)}
+					disabled={
+						!getValues('fromAmount') || !!errors.fromAmount?.message
+					}
+					onClick={e => {
+						e.preventDefault()
+						setModalOpen(true)
+					}}
+				>
+					{content}
+				</Button>
+			</div>
 
 			{tokenRate.data && toAmount ? (
 				<SwapModal

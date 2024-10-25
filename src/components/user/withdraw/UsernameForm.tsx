@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useWithdrawUsername from '@/app/main/withdraw/hooks/useWithdrawUsername'
+import useWithdrawUsername from '@/app/main/user/withdraw/hooks/useWithdrawUsername'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { IUsername } from '@/types/username.type'

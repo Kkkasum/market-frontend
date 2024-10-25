@@ -2,11 +2,12 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useFee from '@/app/main/withdraw/hooks/useFee'
-import useWithdrawTon from '@/app/main/withdraw/hooks/useWithdrawTon'
+import useFee from '@/app/main/user/withdraw/hooks/useFee'
+import useWithdrawTon from '@/app/main/user/withdraw/hooks/useWithdrawTon'
 import Button from '@/components/ui/Button'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
+import Loader from '@/components/ui/Loader'
 import { NETWORK } from '@/types/deposit.type'
 import { validTonAddress } from '@/utils/validAddress'
 
@@ -120,6 +121,8 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 				<Button
 					className='w-full'
 					disabled={
+						isLoading ||
+						isWithdrawPending ||
 						!getValues('address') ||
 						!getValues('amount') ||
 						!!errors.address?.message ||
@@ -127,7 +130,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 					}
 					type='submit'
 				>
-					Withdraw
+					{isWithdrawPending ? <Loader size={24} /> : 'Withdraw'}
 				</Button>
 			</div>
 		</form>

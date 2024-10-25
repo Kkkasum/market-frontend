@@ -2,11 +2,12 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
-import useFee from '@/app/main/withdraw/hooks/useFee'
-import useWithdrawUsdt from '@/app/main/withdraw/hooks/useWithdrawUsdt'
+import useFee from '@/app/main/user/withdraw/hooks/useFee'
+import useWithdrawUsdt from '@/app/main/user/withdraw/hooks/useWithdrawUsdt'
 import Button from '@/components/ui/Button'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
+import Loader from '@/components/ui/Loader'
 import { NETWORK } from '@/types/deposit.type'
 import { validUsdtAddress } from '@/utils/validAddress'
 
@@ -120,6 +121,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 					className='w-full'
 					disabled={
 						isLoading ||
+						isWithdrawPending ||
 						!getValues('address') ||
 						!getValues('amount') ||
 						!!errors.address?.message ||
@@ -127,7 +129,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 					}
 					type='submit'
 				>
-					Withdraw
+					{isWithdrawPending ? <Loader size={24} /> : 'Withdraw'}
 				</Button>
 			</div>
 		</form>

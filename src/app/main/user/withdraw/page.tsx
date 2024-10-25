@@ -10,7 +10,7 @@ import TonForm from '@/components/user/withdraw/TonForm'
 import UsdtForm from '@/components/user/withdraw/UsdtForm'
 import UsernameForm from '@/components/user/withdraw/UsernameForm'
 import { Asset } from '@/types/user.type'
-import useUser from '../user/hooks/useUser'
+import useUser from '../hooks/useUser'
 
 export interface IForm {
 	address: string
