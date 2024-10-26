@@ -6,7 +6,11 @@ import { IWithdrawTonRequest } from '@/types/withdrawal.type'
 export default function useWithdrawTon(userId: number) {
 	const queryClient = useQueryClient()
 
-	const { mutate: withdrawTon, isPending: isWithdrawPending } = useMutation({
+	const {
+		mutate: withdrawTon,
+		isPending: isWithdrawPending,
+		isError,
+	} = useMutation({
 		mutationKey: ['withdraw-ton', { userId: userId }],
 		mutationFn: (data: IWithdrawTonRequest) =>
 			WithdrawService.withdrawTon(data),
@@ -17,5 +21,5 @@ export default function useWithdrawTon(userId: number) {
 		},
 	})
 
-	return { withdrawTon, isWithdrawPending }
+	return { withdrawTon, isWithdrawPending, isError }
 }

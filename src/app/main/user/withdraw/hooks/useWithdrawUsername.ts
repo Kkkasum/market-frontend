@@ -6,17 +6,20 @@ import { IWithdrawUsernameRequest } from '@/types/withdrawal.type'
 export default function useWithdrawUsername(userId: number) {
 	const queryClient = useQueryClient()
 
-	const { mutate: withdrawUsername, isPending: isWithdrawPending } =
-		useMutation({
-			mutationKey: ['withdraw-username'],
-			mutationFn: (data: IWithdrawUsernameRequest) =>
-				WithdrawService.withdrawUsername(data),
-			onSuccess() {
-				queryClient.invalidateQueries({
-					queryKey: ['user', { userId: userId }],
-				})
-			},
-		})
+	const {
+		mutate: withdrawUsername,
+		isPending: isWithdrawPending,
+		isError,
+	} = useMutation({
+		mutationKey: ['withdraw-username'],
+		mutationFn: (data: IWithdrawUsernameRequest) =>
+			WithdrawService.withdrawUsername(data),
+		onSuccess() {
+			queryClient.invalidateQueries({
+				queryKey: ['user', { userId: userId }],
+			})
+		},
+	})
 
-	return { withdrawUsername, isWithdrawPending }
+	return { withdrawUsername, isWithdrawPending, isError }
 }

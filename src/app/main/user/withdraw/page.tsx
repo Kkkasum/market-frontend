@@ -30,10 +30,12 @@ export default function Page() {
 
 	useBackButton(ROUTE_USER)
 
+	console.log(data?.numbers)
+
 	return isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : data ? (
-		<div className='flex flex-col gap-10 w-full'>
+		<div className='flex flex-col gap-5 w-full mb-24'>
 			<div className='flex flex-col items-start gap-1 w-full'>
 				<span className='text-lg font-bold'>Choose asset</span>
 				<AssetDropdown asset={asset} setAsset={setAsset} />
@@ -41,13 +43,13 @@ export default function Page() {
 
 			{asset &&
 				(asset === Asset.NUMBER ? (
-					data.numbers ? (
+					data.numbers?.length ? (
 						<NumberForm userId={userId} numbers={data.numbers} />
 					) : (
 						<span>You have no numbers yet</span>
 					)
 				) : asset === Asset.USERNAME ? (
-					data.usernames ? (
+					data.usernames?.length ? (
 						<UsernameForm
 							userId={userId}
 							usernames={data.usernames}

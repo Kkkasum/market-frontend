@@ -10,7 +10,7 @@ const Frame: FC<Props> = ({ className, children }) => {
 	return (
 		<div
 			className={twMerge(
-				'flex items-start justify-between bg-gray-blue rounded-xl pl-5 py-10 gap-3 w-full h-32',
+				'flex items-center justify-between bg-gray-blue rounded-xl pl-5 gap-3 w-full h-24',
 				className
 			)}
 		>

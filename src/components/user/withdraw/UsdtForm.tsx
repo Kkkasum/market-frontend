@@ -23,12 +23,11 @@ interface IForm {
 
 const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 	const { data, isLoading } = useFee(NETWORK.TRON)
-	const { withdrawUsdt, isWithdrawPending } = useWithdrawUsdt(userId)
+	const { withdrawUsdt, isWithdrawPending, isError } = useWithdrawUsdt(userId)
 	const {
 		register,
 		handleSubmit,
-		getValues,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
 	const onFormSubmit = ({ address, amount }: IForm) => {
@@ -41,7 +40,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-8 w-full'
+			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -107,11 +106,11 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 
 				<p className='flex items-center justify-between px-1'>
 					<span>Withdrawal Fees</span>
-					<span>{data?.fee} USDT</span>
+					<span>{data?.fee ? `${data.fee} USDT` : '-'}</span>
 				</p>
 			</div>
 
-			<p className='flex flex-col w-full text-start text-lg text-red-500'>
+			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.address?.message}</span>
 				<span>{errors.amount?.message}</span>
 			</p>
@@ -120,16 +119,17 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 				<Button
 					className='w-full'
 					disabled={
-						isLoading ||
-						isWithdrawPending ||
-						!getValues('address') ||
-						!getValues('amount') ||
-						!!errors.address?.message ||
-						!!errors.amount?.message
+						isLoading || isWithdrawPending || !isValid || isError
 					}
 					type='submit'
 				>
-					{isWithdrawPending ? <Loader size={24} /> : 'Withdraw'}
+					{isError ? (
+						'Some error occurred'
+					) : isWithdrawPending ? (
+						<Loader size={24} />
+					) : (
+						'Withdraw'
+					)}
 				</Button>
 			</div>
 		</form>

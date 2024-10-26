@@ -19,29 +19,32 @@ interface Props {
 interface IForm {
 	address: string
 	amount: number
+	tag?: string
 }
 
 const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 	const { data, isLoading } = useFee(NETWORK.TON)
-	const { withdrawTon, isWithdrawPending } = useWithdrawTon(userId)
+	const { withdrawTon, isWithdrawPending, isError } = useWithdrawTon(userId)
 	const {
 		register,
 		handleSubmit,
-		getValues,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
-	const onFormSubmit = ({ address, amount }: IForm) => {
+	const onFormSubmit = ({ address, tag, amount }: IForm) => {
 		withdrawTon({
 			userId: userId,
 			address: address,
+			tag: tag,
 			amount: amount,
 		})
 	}
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : data && data.fee ? (
 		<form
-			className='flex flex-col gap-8 w-full'
+			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -72,6 +75,24 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 				/>
 			</p>
 
+			<div className='flex flex-col items-start gap-1 w-full'>
+				<p className='flex items-center gap-1'>
+					<span className='text-lg font-bold'>Tag/Memo/Comment</span>
+					<span className='text-xs opacity-40'>optional</span>
+				</p>
+
+				<Input
+					className={twMerge(
+						'flex items-center justify-between p-3 bg-gray-blue w-full rounded-xl border border-solid',
+						errors.address?.message
+							? 'border-red-600 bg-red-600/30'
+							: 'border-transparent'
+					)}
+					placeholder='Tag'
+					{...register<'tag'>('tag')}
+				/>
+			</div>
+
 			<div className='flex flex-col gap-2 w-full'>
 				<Frame
 					className={twMerge(
@@ -92,7 +113,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 								message: 'The minimum withdrawal amount is 0.5',
 							},
 							max: {
-								value: tonBalance,
+								value: tonBalance - +data.fee,
 								message: 'Not enough balance',
 							},
 							validate: value =>
@@ -108,11 +129,11 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 
 				<p className='flex items-center justify-between px-1'>
 					<span>Withdrawal Fees</span>
-					<span>{data?.fee} TON</span>
+					<span>{data?.fee ? `${data.fee} TON` : '-'}</span>
 				</p>
 			</div>
 
-			<p className='flex flex-col w-full text-start text-lg text-red-500'>
+			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.address?.message}</span>
 				<span>{errors.amount?.message}</span>
 			</p>
@@ -121,19 +142,22 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 				<Button
 					className='w-full'
 					disabled={
-						isLoading ||
-						isWithdrawPending ||
-						!getValues('address') ||
-						!getValues('amount') ||
-						!!errors.address?.message ||
-						!!errors.amount?.message
+						isLoading || isWithdrawPending || !isValid || isError
 					}
 					type='submit'
 				>
-					{isWithdrawPending ? <Loader size={24} /> : 'Withdraw'}
+					{isError ? (
+						'Some error occurred'
+					) : isWithdrawPending ? (
+						<Loader size={24} />
+					) : (
+						'Withdraw'
+					)}
 				</Button>
 			</div>
 		</form>
+	) : (
+		<span>Something's gone wrong. Try again later</span>
 	)
 }
 

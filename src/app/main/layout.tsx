@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<>
 			<Header />
 
-			<main className='flex flex-col mt-16 h-full overflow-hidden px-5'>
+			<main className='flex flex-col mt-14 h-full overflow-hidden px-5'>
 				{children}
 			</main>
 		</>

@@ -1,5 +1,5 @@
 export interface IFeeResponse {
-	fee: string
+	fee?: string
 }
 
 interface IWithdrawRequest {
@@ -11,7 +11,9 @@ export interface IWithdrawUsdtRequest extends IWithdrawRequest {
 	amount: number
 }
 
-export interface IWithdrawTonRequest extends IWithdrawUsdtRequest {}
+export interface IWithdrawTonRequest extends IWithdrawUsdtRequest {
+	tag?: string
+}
 
 export interface IWithdrawNumberRequest extends IWithdrawRequest {
 	number: string

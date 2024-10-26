@@ -6,6 +6,7 @@ import useWithdrawNumber from '@/app/main/user/withdraw/hooks/useWithdrawNumber'
 import NumbersDropdown from '@/components/dropdown/NumbersDropdown'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Loader from '@/components/ui/Loader'
 import { INumber } from '@/types/number.type'
 import { validTonAddress } from '@/utils/validAddress'
 
@@ -20,12 +21,12 @@ interface IForm {
 
 const NumberForm: FC<Props> = ({ userId, numbers }) => {
 	const [number, setNumber] = useState<string>()
-	const { withdrawNumber, isWithdrawPending } = useWithdrawNumber(userId)
+	const { withdrawNumber, isWithdrawPending, isError } =
+		useWithdrawNumber(userId)
 	const {
 		register,
 		handleSubmit,
-		getValues,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
 	const onFormSubmit = ({ address }: IForm) => {
@@ -40,7 +41,7 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 
 	return (
 		<form
-			className='flex flex-col gap-8 w-full'
+			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
 		>
 			<p className='flex flex-col items-start gap-1 w-full'>
@@ -77,21 +78,23 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 				setNumber={setNumber}
 			/>
 
-			<p className='flex flex-col w-full text-start text-lg text-red-500'>
+			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.address?.message}</span>
 			</p>
 
 			<div className='flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold'>
 				<Button
 					className='w-full'
-					disabled={
-						!number ||
-						!getValues('address') ||
-						!!errors.address?.message
-					}
+					disabled={!number || !isValid || isError}
 					type='submit'
 				>
-					Withdraw
+					{isError ? (
+						'Some error occurred'
+					) : isWithdrawPending ? (
+						<Loader size={24} />
+					) : (
+						'Withdraw'
+					)}
 				</Button>
 			</div>
 		</form>

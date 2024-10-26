@@ -165,7 +165,7 @@ export default function Page() {
 				</Frame>
 
 				<div
-					className='absolute top-[110px] right-3 z-10 rounded-full bg-gray-blue border border-solid border-white/10 p-3 cursor-pointer hover:bg-gray-blue transition-colors duration-300'
+					className='flex items-center justify-center absolute top-0 bottom-0 right-3 my-auto h-12 z-10 rounded-full bg-gray-blue border border-solid border-white/10 p-3 cursor-pointer'
 					onClick={() => switchTokens(fromToken, toToken)}
 				>
 					<SwapIcon />
@@ -187,7 +187,9 @@ export default function Page() {
 						changeToken={changeToToken}
 					/>
 				</Frame>
+			</div>
 
+			<div className='flex flex-col items-center gap-3 mt-3'>
 				{fromToken && (
 					<p className='flex items-center justify-between px-3 w-full'>
 						<span>Balance:</span>
