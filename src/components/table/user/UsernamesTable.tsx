@@ -19,12 +19,12 @@ const UsernamesTable: FC<Props> = ({ usernames }) => {
 			{usernames.map(n => (
 				<tr
 					key={n.id}
-					className='bg-dark hover:bg-gray-blue cursor-pointer border-b-[1px] border-black relative right-caret'
+					className='bg-dark hover:bg-gray-blue cursor-pointer border-b-[1px] border-black'
 					onClick={() => push(ROUTE_USERNAME + `/${n.username}`)}
 				>
 					<th className='text-start font-medium'>@{n.username}</th>
 
-					<td>
+					<td className='relative'>
 						{n.status === UsernameStatus.MARKET ? (
 							<StatusMarket />
 						) : (

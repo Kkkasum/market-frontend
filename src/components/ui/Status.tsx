@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 export const StatusWallet: FC = () => {
 	return (
-		<span className='bg-blue/10 opacity-90 px-2 py-1 rounded-lg text-xs text-blue'>
+		<span className='bg-blue/10 opacity-90 px-2 py-1 rounded-lg text-xs text-blue right-caret'>
 			Wallet
 		</span>
 	)
@@ -10,7 +10,7 @@ export const StatusWallet: FC = () => {
 
 export const StatusMarket: FC = () => {
 	return (
-		<span className='bg-green/10 opacity-90 px-2 py-1 rounded-lg text-xs text-green'>
+		<span className='bg-green/10 opacity-90 px-2 py-1 rounded-lg text-xs text-green right-caret'>
 			Market
 		</span>
 	)

@@ -20,13 +20,13 @@ const NumbersTable: FC<Props> = ({ numbers }) => {
 			{numbers.map(n => (
 				<tr
 					key={n.id}
-					className='bg-dark hover:bg-gray-blue cursor-pointer border-b-[1px] border-black relative right-caret'
+					className='bg-dark hover:bg-gray-blue cursor-pointer border-b-[1px] border-black'
 					onClick={() => push(ROUTE_NUMBER + `/${n.number}`)}
 				>
 					<th className='text-start font-medium'>
 						{formatNumber(n.number)}
 					</th>
-					<td>
+					<td className='relative'>
 						{n.status === NumberStatus.MARKET ? (
 							<StatusMarket />
 						) : (
