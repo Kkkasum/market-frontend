@@ -1,9 +1,8 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useEffect, useState } from 'react'
 
-import LogoLoader from '@/components/ui/LogoLoader'
+import Loader from '@/components/ui/Loader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
 import useUser from './hooks/useUser'
@@ -14,19 +13,10 @@ export default function Page() {
 		userId = WebApp.initDataUnsafe.user?.id || 1
 	}
 
-	const { data, isFetching } = useUser(userId)
-	const [showLoader, setShowLoader] = useState<boolean>(true)
+	const { data, isLoading } = useUser(userId)
 
-	useEffect(() => {
-		if (isFetching) {
-			setTimeout(() => {
-				setShowLoader(false)
-			}, 1000)
-		}
-	}, [isFetching])
-
-	return showLoader ? (
-		<LogoLoader />
+	return isLoading ? (
+		<Loader />
 	) : (
 		<div className='flex flex-col justify-center w-full mb-5 gap-5'>
 			<>
