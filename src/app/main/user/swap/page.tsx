@@ -68,6 +68,10 @@ export default function Page() {
 	}
 
 	useEffect(() => {
+		WebApp.BackButton.show()
+	}, [])
+
+	useEffect(() => {
 		if (tokenRate.data && isValid) {
 			setToAmount(+tokenRate.data.rate * getValues('fromAmount'))
 		}

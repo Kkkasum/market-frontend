@@ -18,6 +18,10 @@ export default function Page() {
 	const [showLoader, setShowLoader] = useState<boolean>(true)
 
 	useEffect(() => {
+		WebApp.BackButton.show()
+	}, [])
+
+	useEffect(() => {
 		if (isFetching) {
 			setTimeout(() => {
 				setShowLoader(false)

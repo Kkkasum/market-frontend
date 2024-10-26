@@ -1,7 +1,7 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
 import Loader from '@/components/ui/Loader'
@@ -25,6 +25,10 @@ export default function Page() {
 
 	const [asset, setAsset] = useState<Asset>()
 	const { data, isLoading } = useUser(userId)
+
+	useEffect(() => {
+		WebApp.BackButton.show()
+	}, [])
 
 	return isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />

@@ -1,7 +1,7 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import TimeSortDropdown from '@/components/dropdown/TimeFilterDropdown'
@@ -33,6 +33,10 @@ export default function Page() {
 	const [depositTx, setDepositTx] = useState<IDepositTx>()
 	const [withdrawalTx, setWithdrawalTx] = useState<IWithdrawalTx>()
 	const [swapTx, setSwapTx] = useState<ISwapTx>()
+
+	useEffect(() => {
+		WebApp.BackButton.show()
+	}, [])
 
 	const showDepositTxModal = (tx: IDepositTx) => {
 		setModalOpen(true)
