@@ -1,7 +1,7 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import TimeSortDropdown from '@/components/dropdown/TimeFilterDropdown'
@@ -13,6 +13,8 @@ import DepositTable from '@/components/table/history/DepositTable'
 import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
 import Loader from '@/components/ui/Loader'
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_USER } from '@/routes'
 import { IDepositTx, ISwapTx, IWithdrawalTx } from '@/types/history.type'
 import { TimeSort, TxFilter } from '@/types/user.type'
 import { sortByTime } from '@/utils/sortByTime'
@@ -34,9 +36,7 @@ export default function Page() {
 	const [withdrawalTx, setWithdrawalTx] = useState<IWithdrawalTx>()
 	const [swapTx, setSwapTx] = useState<ISwapTx>()
 
-	useEffect(() => {
-		WebApp.BackButton.show()
-	}, [])
+	useBackButton(ROUTE_USER)
 
 	const showDepositTxModal = (tx: IDepositTx) => {
 		setModalOpen(true)

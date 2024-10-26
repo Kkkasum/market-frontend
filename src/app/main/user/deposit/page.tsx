@@ -4,19 +4,16 @@ import { useEffect, useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
 import Deposit from '@/components/user/deposit/Deposit'
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_USER } from '@/routes'
 import { NETWORK } from '@/types/deposit.type'
 import { Asset } from '@/types/user.type'
-import WebApp from '@twa-dev/sdk'
 
 export default function Page() {
 	const [asset, setAsset] = useState<Asset>()
 	const [network, setNetwork] = useState<NETWORK>()
 
-	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			WebApp.BackButton.show()
-		}
-	}, [])
+	useBackButton(ROUTE_USER)
 
 	useEffect(() => {
 		if (asset === Asset.USDT) {

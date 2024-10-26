@@ -5,6 +5,8 @@ import { twMerge } from 'tailwind-merge'
 import useUser from '@/app/main/user/hooks/useUser'
 import useBuyUsername from '@/app/main/username/hooks/useBuyUsername'
 import useRemoveUsername from '@/app/main/username/hooks/useRemoveUsername'
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_MARKET_USERNAMES } from '@/routes'
 import { IMarketUsername } from '@/types/market.type'
 import { formatAddress, formatDate } from '@/utils/formatters'
 import Button from '../ui/Button'
@@ -37,6 +39,8 @@ const UsernameMarket: FC<Props> = ({
 		userId,
 		username
 	)
+
+	useBackButton(ROUTE_MARKET_USERNAMES)
 
 	return (
 		<>

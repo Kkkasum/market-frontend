@@ -1,7 +1,7 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
 import Loader from '@/components/ui/Loader'
@@ -9,6 +9,8 @@ import NumberForm from '@/components/user/withdraw/NumberForm'
 import TonForm from '@/components/user/withdraw/TonForm'
 import UsdtForm from '@/components/user/withdraw/UsdtForm'
 import UsernameForm from '@/components/user/withdraw/UsernameForm'
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_USER } from '@/routes'
 import { Asset } from '@/types/user.type'
 import useUser from '../hooks/useUser'
 
@@ -26,9 +28,7 @@ export default function Page() {
 	const [asset, setAsset] = useState<Asset>()
 	const { data, isLoading } = useUser(userId)
 
-	useEffect(() => {
-		WebApp.BackButton.show()
-	}, [])
+	useBackButton(ROUTE_USER)
 
 	return isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />

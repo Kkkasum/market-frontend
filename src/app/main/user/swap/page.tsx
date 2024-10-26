@@ -14,6 +14,8 @@ import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import LogoLoader from '@/components/ui/LogoLoader'
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_USER } from '@/routes'
 import useUser from '../hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
@@ -67,9 +69,7 @@ export default function Page() {
 			break
 	}
 
-	useEffect(() => {
-		WebApp.BackButton.show()
-	}, [])
+	useBackButton(ROUTE_USER)
 
 	useEffect(() => {
 		if (tokenRate.data && isValid) {

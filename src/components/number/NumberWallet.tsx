@@ -2,6 +2,8 @@ import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
+import useBackButton from '@/hooks/useBackButton'
+import { ROUTE_USER } from '@/routes'
 import { INumberWithOwner } from '@/types/number.type'
 import { formatAddress, formatNumber } from '@/utils/formatters'
 import InstantSellNumberModal from '../modals/InstantSellNumberModal'
@@ -18,6 +20,8 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 		useState<boolean>(false)
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
 		useState<boolean>(false)
+
+	useBackButton(ROUTE_USER)
 
 	return (
 		<>
