@@ -13,7 +13,6 @@ import Frame from '@/components/ui/Frame'
 import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
-import LogoLoader from '@/components/ui/LogoLoader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
 import useUser from '../hooks/useUser'
@@ -124,7 +123,7 @@ export default function Page() {
 	}
 
 	return isSwapAvailable.isLoading ? (
-		<LogoLoader />
+		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : isSwapAvailable.isError ? (
 		<span className='flex items-center justify-center fixed bottom-0 left-0 w-full h-full'>
 			Service is unavailable. Try again later

@@ -16,7 +16,7 @@ export default function Page() {
 	const { data, isLoading } = useUser(userId)
 
 	return isLoading ? (
-		<Loader />
+		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : (
 		<div className='flex flex-col justify-center w-full mb-5 gap-5'>
 			<>

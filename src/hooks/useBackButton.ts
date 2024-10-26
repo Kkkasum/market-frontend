@@ -10,5 +10,7 @@ export default function useBackButton(route: string) {
 			WebApp.BackButton.show()
 			WebApp.BackButton.onClick(() => push(route))
 		}
+
+		return () => WebApp.BackButton.hide()
 	}, [])
 }
