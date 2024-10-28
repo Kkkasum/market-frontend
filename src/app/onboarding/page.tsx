@@ -8,12 +8,13 @@ import NumberIcon from '@/components/ui/icons/NumberIcon'
 import UsernameIcon from '@/components/ui/icons/UsernameIcon'
 import WalletIcon from '@/components/ui/icons/WalletIcon'
 import { ROUTE_USER } from '@/routes'
+import { useEffect } from 'react'
 import useAddUser from './hooks/useAddUser'
 
 export default function Page() {
 	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
 	}
 
 	const { push } = useRouter()
@@ -23,6 +24,12 @@ export default function Page() {
 		await addUser({ userId: userId })
 		push(ROUTE_USER)
 	}
+
+	useEffect(() => {
+		if (!userId) {
+			return
+		}
+	}, [])
 
 	return (
 		<>
@@ -65,6 +72,8 @@ export default function Page() {
 				<span>Deposit TON, USDT-TRC20</span>
 				<span>Buy and Sell usernames and numbers</span>
 			</p>
+
+			<span>{userId}</span>
 
 			<div className='flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full font-bold'>
 				<Button

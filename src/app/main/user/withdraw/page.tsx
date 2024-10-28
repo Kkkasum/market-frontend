@@ -30,8 +30,6 @@ export default function Page() {
 
 	useBackButton(ROUTE_USER)
 
-	console.log(data?.numbers)
-
 	return isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : data ? (
