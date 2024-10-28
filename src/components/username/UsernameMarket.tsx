@@ -9,12 +9,12 @@ import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_MARKET_USERNAMES } from '@/routes'
 import { IMarketUsername } from '@/types/market.type'
 import { formatAddress, formatDate } from '@/utils/formatters'
+import { StatusMarket } from '../market/Status'
 import Button from '../ui/Button'
 import Error from '../ui/Error'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
 import Modal from '../ui/Modal'
-import { StatusMarket } from '../ui/Status'
 
 interface Props extends IMarketUsername {}
 
@@ -64,7 +64,7 @@ const UsernameMarket: FC<Props> = ({
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`https://tonscan.com/address/${address}`}
+						href={`https://tonscan.org/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}

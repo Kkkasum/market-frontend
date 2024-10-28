@@ -3,20 +3,23 @@ import { FC, useEffect, useState } from 'react'
 import Button from '@/components/ui/Button'
 import CheckIcon from '@/components/ui/icons/CheckIcon'
 import CopyIcon from '@/components/ui/icons/CopyIcon'
-import TonIcon from '@/components/ui/icons/TonIcon'
-import UsdtIcon from '@/components/ui/icons/UsdtIcon'
 import Modal from '@/components/ui/Modal'
-import { IWithdrawalTx } from '@/types/history.type'
-import { Asset } from '@/types/user.type'
-import { formatAddress, formatDate } from '@/utils/formatters'
+import { INftWithdrawalTx } from '@/types/history.type'
+import {
+	formatAddress,
+	formatDate,
+	formatNumber,
+	formatTxHash,
+} from '@/utils/formatters'
+import isNumber from '@/utils/isNumber'
 
 interface Props {
 	modalOpen: boolean
 	setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-	tx: IWithdrawalTx
+	tx: INftWithdrawalTx
 }
 
-const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
+const NftWithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 	const [isCopied, setIsCopied] = useState<boolean>(false)
 
 	const handleCopy = () => {
@@ -36,24 +39,27 @@ const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 		<Modal
 			modalOpen={modalOpen}
 			setModalOpen={setModalOpen}
-			header='Withdrawal'
+			header='Deposit'
 		>
 			<div className='flex flex-col gap-3 mb-5'>
 				<p className='flex items-center justify-between font-medium'>
-					<span>Token</span>
-					<span className='flex items-center gap-1'>
-						{tx.token === Asset.TON ? (
-							<TonIcon width={16} height={16} />
-						) : (
-							<UsdtIcon width={16} height={16} />
-						)}
-						<span>{tx.token}</span>
+					<span>NFT</span>
+					<span>
+						{isNumber(tx.nftName)
+							? formatNumber(tx.nftName)
+							: `@${tx.nftName}`}
 					</span>
 				</p>
 
 				<p className='flex items-center justify-between font-medium'>
-					<span>Amount</span>
-					<span>{tx.amount}</span>
+					<span>NFT Address</span>
+					<a
+						href={`https://tonscan.org/address/${tx.nftAddress}`}
+						target='_blank'
+						className='hover:text-blue cursor-pointer transition-colors duration-300'
+					>
+						{formatAddress(tx.nftAddress)}
+					</a>
 				</p>
 
 				<p className='flex items-center justify-between font-medium'>
@@ -68,7 +74,13 @@ const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 
 				<p className='flex items-center justify-between font-medium'>
 					<span>Tx</span>
-					<span>{tx.txHash}</span>
+					<a
+						href={`https://tonscan.org/tx/${tx.txHash}`}
+						target='_blank'
+						className='hover:text-blue cursor-pointer transition-colors duration-300'
+					>
+						{formatTxHash(tx.txHash)}
+					</a>
 				</p>
 
 				<Button
@@ -93,4 +105,4 @@ const WithdrawalTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 	)
 }
 
-export default WithdrawalTxModal
+export default NftWithdrawalTxModal

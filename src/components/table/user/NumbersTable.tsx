@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
-import { StatusMarket, StatusWallet } from '@/components/ui/Status'
+import { StatusMarket, StatusWallet } from '@/components/market/Status'
 import Table from '@/components/ui/Table'
 import { ROUTE_NUMBER } from '@/routes'
 import { INumber, NumberStatus } from '@/types/number.type'
@@ -27,11 +27,13 @@ const NumbersTable: FC<Props> = ({ numbers }) => {
 						{formatNumber(n.number)}
 					</th>
 					<td className='relative'>
-						{n.status === NumberStatus.MARKET ? (
-							<StatusMarket />
-						) : (
-							<StatusWallet />
-						)}
+						<p className='right-caret'>
+							{n.status === NumberStatus.MARKET ? (
+								<StatusMarket />
+							) : (
+								<StatusWallet />
+							)}
+						</p>
 					</td>
 				</tr>
 			))}

@@ -1,4 +1,3 @@
-import { TimeSort } from '@/types/user.type'
 import { FC } from 'react'
 
 import {
@@ -9,29 +8,28 @@ import {
 } from '@/components/ui/Dropdown'
 
 interface Props {
-	filter: TimeSort
-	setFilter: React.Dispatch<React.SetStateAction<TimeSort>>
+	currentFilter: string
+	filters: string[]
+	setFilter: React.Dispatch<React.SetStateAction<string>>
 }
 
-const TimeSortDropdown: FC<Props> = ({ filter, setFilter }) => {
-	const filters = [TimeSort.RECENTLY, TimeSort.OLDEST]
-
+const FilterDropdown: FC<Props> = ({ currentFilter, filters, setFilter }) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex items-center justify-between px-2 py-2 bg-gray-blue rounded-lg outline-none'>
-				<span className='relative down-caret text-start pr-5'>
-					{filter}
+				<span className='relative down-caret text-start pr-5 font-bold'>
+					{currentFilter}
 				</span>
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent
 				className='text-start text-white bg-gray-blue border-transparent rounded-xl'
-				align='end'
+				align='center'
 			>
 				{filters.map((f, index) => (
 					<DropdownMenuItem
 						key={index}
-						className={f === filter ? 'checked' : ''}
+						className={f === currentFilter ? 'checked' : ''}
 						onClick={() => setFilter(f)}
 					>
 						{f}
@@ -42,4 +40,4 @@ const TimeSortDropdown: FC<Props> = ({ filter, setFilter }) => {
 	)
 }
 
-export default TimeSortDropdown
+export default FilterDropdown

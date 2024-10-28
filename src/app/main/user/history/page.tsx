@@ -1,22 +1,29 @@
 'use client'
 
 import WebApp from '@twa-dev/sdk'
-import { useState } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { useEffect, useState } from 'react'
 
-import TimeSortDropdown from '@/components/dropdown/TimeFilterDropdown'
-import TxFilterDropdown from '@/components/dropdown/TxFilterDropdown'
-import DepositTxModal from '@/components/modals/history/DepositTxModal'
-import SwapTxModal from '@/components/modals/history/SwapTxModal'
-import WithdrawalTxModal from '@/components/modals/history/WithdrawalTxModal'
+import AssetFilterDropdown from '@/components/dropdown/AssetFilterDropdown'
+import FilterDropdown from '@/components/dropdown/FilterDropdown'
+import TimeSortDropdown from '@/components/dropdown/TimeSortDropdown'
 import DepositTable from '@/components/table/history/DepositTable'
+import MarketOrderTable from '@/components/table/history/MarketOrderTable'
+import NftDepositTable from '@/components/table/history/NftDepositTable'
+import NftWithdrawalTable from '@/components/table/history/NftWIthdrawalTable'
 import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
-import { IDepositTx, ISwapTx, IWithdrawalTx } from '@/types/history.type'
-import { TimeSort, TxFilter } from '@/types/user.type'
+import {
+	IDepositTx,
+	IMarketOrder,
+	INftDepositTx,
+	INftWithdrawalTx,
+	ISwapTx,
+	IWithdrawalTx,
+} from '@/types/history.type'
+import { AssetFilter, NftTxFilter, TimeSort, TxFilter } from '@/types/user.type'
 import { sortByTime } from '@/utils/sortByTime'
 import useUserHistory from '../hooks/useUserHistory'
 
@@ -28,129 +35,145 @@ export default function Page() {
 
 	const { data, isLoading } = useUserHistory(userId)
 
-	const [txFilter, setTxFilter] = useState<TxFilter>(TxFilter.DEPOSIT)
+	const [assetFilter, setAssetFilter] = useState<AssetFilter>(
+		AssetFilter.TOKEN
+	)
+	const [txFilter, setTxFilter] = useState<string>(TxFilter.DEPOSIT)
+	const [nftTxFilter, setNftTxFilter] = useState<string>(NftTxFilter.DEPOSIT)
 	const [timeSort, setTimeSort] = useState<TimeSort>(TimeSort.RECENTLY)
-
-	const [modalOpen, setModalOpen] = useState<boolean>(false)
-	const [depositTx, setDepositTx] = useState<IDepositTx>()
-	const [withdrawalTx, setWithdrawalTx] = useState<IWithdrawalTx>()
-	const [swapTx, setSwapTx] = useState<ISwapTx>()
 
 	useBackButton(ROUTE_USER)
 
-	const showDepositTxModal = (tx: IDepositTx) => {
-		setModalOpen(true)
-		setDepositTx(tx)
-	}
-
-	const showWithdrawalTxModal = (tx: IWithdrawalTx) => {
-		setModalOpen(true)
-		setWithdrawalTx(tx)
-	}
-
-	const showSwapTxModal = (tx: ISwapTx) => {
-		setModalOpen(true)
-		setSwapTx(tx)
-	}
+	useEffect(() => {
+		if (assetFilter === AssetFilter.NFT && txFilter === TxFilter.SWAP) {
+			setTxFilter(TxFilter.DEPOSIT)
+		}
+	}, [assetFilter])
 
 	return (
 		<>
-			<div
-				className={twMerge(
-					'flex flex-col gap-3',
-					modalOpen && 'blurred'
+			<div className='flex items-center gap-3'>
+				<AssetFilterDropdown
+					filter={assetFilter}
+					setFilter={setAssetFilter}
+				/>
+
+				{assetFilter === AssetFilter.TOKEN ? (
+					<FilterDropdown
+						currentFilter={txFilter}
+						filters={[
+							TxFilter.DEPOSIT,
+							TxFilter.WITHDRAWAL,
+							TxFilter.SWAP,
+						]}
+						setFilter={setTxFilter}
+					/>
+				) : assetFilter === AssetFilter.NFT ? (
+					<FilterDropdown
+						currentFilter={nftTxFilter}
+						filters={[
+							NftTxFilter.DEPOSIT,
+							NftTxFilter.WITHDRAWAL,
+							NftTxFilter.MARKET,
+						]}
+						setFilter={setNftTxFilter}
+					/>
+				) : (
+					<></>
 				)}
-			>
-				<div className='flex items-center justify-between text-start text-sm'>
-					<span className='text-2xl font-bold'>History</span>
 
-					<div className='flex items-center gap-3'>
-						<TxFilterDropdown
-							filter={txFilter}
-							setFilter={setTxFilter}
-						/>
+				<TimeSortDropdown filter={timeSort} setFilter={setTimeSort} />
+			</div>
 
-						<TimeSortDropdown
-							filter={timeSort}
-							setFilter={setTimeSort}
-						/>
-					</div>
-				</div>
-
+			<div className='flex items-center justify-center border border-transparent rounded-xl overflow-hidden bg-gray-blue min-w-80 min-h-20'>
 				{isLoading ? (
 					<Loader />
-				) : txFilter === TxFilter.DEPOSIT ? (
-					<div className='flex items-center justify-center border border-transparent rounded-xl overflow-hidden bg-gray-blue min-w-80 min-h-20'>
-						{data?.depositTxs ? (
-							<DepositTable
-								txs={sortByTime<IDepositTx>(
-									data.depositTxs,
-									timeSort
-								)}
-								showTxModal={showDepositTxModal}
-							/>
-						) : (
-							<span className='text-sm font-light opacity-40'>
-								You have no deposits yet
-							</span>
-						)}
-					</div>
-				) : txFilter === TxFilter.WITHDRAWAL ? (
-					<div className='flex items-center justify-center border border-transparent rounded-xl overflow-hidden bg-gray-blue min-w-80 min-h-20'>
-						{data?.withdrawalTxs ? (
-							<WithdrawalTable
-								txs={sortByTime<IWithdrawalTx>(
-									data.withdrawalTxs,
-									timeSort
-								)}
-								showTxModal={showWithdrawalTxModal}
-							/>
-						) : (
-							<span className='text-sm font-light opacity-40'>
-								You have no withdrawals yet
-							</span>
-						)}
-					</div>
-				) : (
-					<div className='flex items-center justify-center border border-transparent rounded-xl overflow-hidden bg-gray-blue min-w-80 min-h-20'>
-						{data?.swapTxs ? (
+				) : data ? (
+					assetFilter === AssetFilter.TOKEN ? (
+						txFilter === TxFilter.DEPOSIT ? (
+							data.depositTxs ? (
+								<DepositTable
+									txs={sortByTime<IDepositTx>(
+										data.depositTxs,
+										timeSort
+									)}
+								/>
+							) : (
+								<span className='text-sm font-light opacity-40'>
+									You have no deposits yet
+								</span>
+							)
+						) : txFilter === TxFilter.WITHDRAWAL ? (
+							data.withdrawalTxs ? (
+								<WithdrawalTable
+									txs={sortByTime<IWithdrawalTx>(
+										data.withdrawalTxs,
+										timeSort
+									)}
+								/>
+							) : (
+								<span className='text-sm font-light opacity-40'>
+									You have no withdrawals yet
+								</span>
+							)
+						) : data.swapTxs ? (
 							<SwapTable
 								txs={sortByTime<ISwapTx>(
 									data.swapTxs,
 									timeSort
 								)}
-								showTxModal={showSwapTxModal}
 							/>
 						) : (
 							<span className='text-sm font-light opacity-40'>
 								You have no swaps yet
 							</span>
-						)}
-					</div>
+						)
+					) : assetFilter === AssetFilter.NFT ? (
+						nftTxFilter === NftTxFilter.DEPOSIT ? (
+							data.nftDepositTxs ? (
+								<NftDepositTable
+									txs={sortByTime<INftDepositTx>(
+										data.nftDepositTxs,
+										timeSort
+									)}
+								/>
+							) : (
+								<span className='text-sm font-light opacity-40'>
+									You have no nft deposits yet
+								</span>
+							)
+						) : nftTxFilter === NftTxFilter.WITHDRAWAL ? (
+							data.nftWithdrawalTxs ? (
+								<NftWithdrawalTable
+									txs={sortByTime<INftWithdrawalTx>(
+										data.nftWithdrawalTxs,
+										timeSort
+									)}
+								/>
+							) : (
+								<span className='text-sm font-light opacity-40'>
+									You have no nft withdrawals yet
+								</span>
+							)
+						) : data.marketOrders ? (
+							<MarketOrderTable
+								orders={sortByTime<IMarketOrder>(
+									data.marketOrders,
+									timeSort
+								)}
+							/>
+						) : (
+							<span className='text-sm font-light opacity-40'>
+								You have no buys or sells on market yet
+							</span>
+						)
+					) : (
+						<></>
+					)
+				) : (
+					<span>Something's gone wrong. Try again later</span>
 				)}
 			</div>
-
-			{txFilter === TxFilter.DEPOSIT && depositTx ? (
-				<DepositTxModal
-					modalOpen={modalOpen}
-					setModalOpen={setModalOpen}
-					tx={depositTx}
-				/>
-			) : txFilter === TxFilter.WITHDRAWAL && withdrawalTx ? (
-				<WithdrawalTxModal
-					modalOpen={modalOpen}
-					setModalOpen={setModalOpen}
-					tx={withdrawalTx}
-				/>
-			) : txFilter === TxFilter.SWAP && swapTx ? (
-				<SwapTxModal
-					modalOpen={modalOpen}
-					setModalOpen={setModalOpen}
-					tx={swapTx}
-				/>
-			) : (
-				<></>
-			)}
 		</>
 	)
 }

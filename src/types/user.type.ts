@@ -1,11 +1,29 @@
-import { IDepositTx, ISwapTx, IWithdrawalTx } from './history.type'
+import {
+	IDepositTx,
+	IMarketOrder,
+	INftDepositTx,
+	INftWithdrawalTx,
+	ISwapTx,
+	IWithdrawalTx,
+} from './history.type'
 import { INumber } from './number.type'
 import { IUsername } from './username.type'
+
+export enum AssetFilter {
+	TOKEN = 'Token',
+	NFT = 'NFT',
+}
 
 export enum TxFilter {
 	DEPOSIT = 'Deposit',
 	WITHDRAWAL = 'Withdrawal',
 	SWAP = 'Swap',
+}
+
+export enum NftTxFilter {
+	DEPOSIT = 'Deposit',
+	WITHDRAWAL = 'Withdrawal',
+	MARKET = 'Market',
 }
 
 export enum TimeSort {
@@ -39,6 +57,9 @@ export interface IUserHistoryResponse {
 	depositTxs?: IDepositTx[]
 	withdrawalTxs?: IWithdrawalTx[]
 	swapTxs?: ISwapTx[]
+	nftDepositTxs?: INftDepositTx[]
+	nftWithdrawalTxs?: INftWithdrawalTx[]
+	marketOrders?: IMarketOrder[]
 }
 
 export interface IAddUserRequest {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import TimeSortDropdown from '@/components/dropdown/TimeFilterDropdown'
+import TimeSortDropdown from '@/components/dropdown/TimeSortDropdown'
 import MarketUsernamesTable from '@/components/table/market/MarketUsernamesTable'
 import SearchIcon from '@/components/ui/icons/SearchIcon'
 import Input from '@/components/ui/Input'

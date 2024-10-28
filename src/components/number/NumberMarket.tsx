@@ -9,11 +9,11 @@ import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_MARKET_NUMBERS } from '@/routes'
 import { IMarketNumber } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
+import { StatusMarket } from '../market/Status'
 import Button from '../ui/Button'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
 import Modal from '../ui/Modal'
-import { StatusMarket } from '../ui/Status'
 
 interface Props extends IMarketNumber {}
 
@@ -57,7 +57,7 @@ const NumberMarket: FC<Props> = ({
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`http://tonscan.com/address/${address}`}
+						href={`http://tonscan.org/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}

@@ -20,15 +20,16 @@ const MarketNumbersTable: FC<Props> = ({ numbers }) => {
 			{numbers.map(n => (
 				<tr
 					key={n.id}
-					className='bg-dark hover:bg-gray-blue cursor-pointer border-b-[1px] border-black relative right-caret'
+					className='bg-dark hover:bg-gray-blue transition-colors duration-150 cursor-pointer border-b-[1px] border-black'
 					onClick={() => push(ROUTE_NUMBER + `/${n.number}`)}
 				>
 					<th className='text-start font-medium'>
 						{formatNumber(n.number)}
 					</th>
-					<td className='flex items-center gap-1'>
+
+					<td className='flex items-center gap-1 relative'>
 						<TonIcon width={16} height={16} color='#4EB2FF' />
-						{n.price}
+						<span className='right-caret'>{n.price}</span>
 					</td>
 				</tr>
 			))}

@@ -6,6 +6,11 @@ export interface IMarketAsset {
 	createdAt: string
 }
 
+export enum IMarketAction {
+	BUY = 'BUY',
+	SELL = 'SELL',
+}
+
 export interface IMarketNumber extends IMarketAsset, INumberWithOwner {}
 
 export interface IMarketUsername extends IMarketAsset, IUsernameWithOwner {}

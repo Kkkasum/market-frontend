@@ -6,10 +6,10 @@ import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
 import { INumberWithOwner } from '@/types/number.type'
 import { formatAddress, formatNumber } from '@/utils/formatters'
+import { StatusWallet } from '../market/Status'
 import InstantSellNumberModal from '../modals/InstantSellNumberModal'
 import PutNumberOnMarketModal from '../modals/PutNumberOnMarketModal'
 import Button from '../ui/Button'
-import { StatusWallet } from '../ui/Status'
 
 interface Props extends INumberWithOwner {}
 
@@ -45,7 +45,7 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`http://tonscan.com/address/${address}`}
+						href={`http://tonscan.org/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}

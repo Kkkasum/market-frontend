@@ -1,4 +1,4 @@
-import { TxFilter } from '@/types/user.type'
+import { AssetFilter } from '@/types/user.type'
 import { FC } from 'react'
 
 import {
@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/Dropdown'
 
 interface Props {
-	filter: TxFilter
-	setFilter: React.Dispatch<React.SetStateAction<TxFilter>>
+	filter: AssetFilter
+	setFilter: React.Dispatch<React.SetStateAction<AssetFilter>>
 }
 
-const TxFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
-	const filters = [TxFilter.DEPOSIT, TxFilter.WITHDRAWAL, TxFilter.SWAP]
+const AssetFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
+	const filters = [AssetFilter.TOKEN, AssetFilter.NFT]
 
 	return (
 		<DropdownMenu>
@@ -26,7 +26,7 @@ const TxFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
 
 			<DropdownMenuContent
 				className='text-start text-white bg-gray-blue border-transparent rounded-xl'
-				align='end'
+				align='start'
 			>
 				{filters.map((f, index) => (
 					<DropdownMenuItem
@@ -42,4 +42,4 @@ const TxFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
 	)
 }
 
-export default TxFilterDropdown
+export default AssetFilterDropdown

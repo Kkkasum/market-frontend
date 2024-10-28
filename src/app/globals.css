@@ -78,4 +78,12 @@ body {
 	.blurred {
 		filter: blur(2px) opacity(40%);
 	}
+
+	.backdrop-blurred {
+		-webkit-filter: blur(1px);
+		-moz-filter: blur(1px);
+		-o-filter: blur(1px);
+		-ms-filter: blur(1px);
+		filter: blur(1px);
+	}
 }

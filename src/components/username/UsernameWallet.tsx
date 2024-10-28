@@ -6,9 +6,9 @@ import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
 import { IUsernameWithOwner } from '@/types/username.type'
 import { formatAddress } from '@/utils/formatters'
+import { StatusWallet } from '../market/Status'
 import PutUsernameOnMarketModal from '../modals/PutUsernameOnMarketModal'
 import Button from '../ui/Button'
-import { StatusWallet } from '../ui/Status'
 
 interface Props extends IUsernameWithOwner {}
 
@@ -42,7 +42,7 @@ const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
 					<span>Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
-						href={`http://tonscan.com/address/${address}`}
+						href={`http://tonscan.org/address/${address}`}
 						target='_blank'
 					>
 						{formatAddress(address)}

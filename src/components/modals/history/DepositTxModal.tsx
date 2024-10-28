@@ -62,11 +62,11 @@ const DepositTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 				</p>
 
 				<p className='flex items-center justify-between font-medium'>
-					<span>Tx hash</span>
+					<span>Tx</span>
 					<a
 						href={
 							tx.token === 'TON'
-								? `https://testnet.tonscan.com/tx/${tx.txHash}`
+								? `https://tonscan.org/tx/${tx.txHash}`
 								: `https://oklink.com/trx/tx/${tx.txHash}`
 						}
 						target='_blank'
@@ -76,23 +76,23 @@ const DepositTxModal: FC<Props> = ({ modalOpen, setModalOpen, tx }) => {
 					</a>
 				</p>
 
-				{isCopied ? (
-					<Button
-						className='flex items-center gap-1 w-full h-12'
-						disabled
-					>
-						<CheckIcon />
-						<span>Copied</span>
-					</Button>
-				) : (
-					<Button
-						className='flex items-center gap-1 w-full h-12'
-						onClick={handleCopy}
-					>
-						<CopyIcon />
-						<span>Copy</span>
-					</Button>
-				)}
+				<Button
+					className='flex items-center gap-1 w-full h-12'
+					onClick={handleCopy}
+					disabled={isCopied}
+				>
+					{isCopied ? (
+						<>
+							<CheckIcon />
+							<span>Copied</span>
+						</>
+					) : (
+						<>
+							<CopyIcon />
+							<span>Copy</span>
+						</>
+					)}
+				</Button>
 			</div>
 		</Modal>
 	)

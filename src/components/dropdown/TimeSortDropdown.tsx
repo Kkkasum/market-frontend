@@ -1,4 +1,4 @@
-import { TxFilter } from '@/types/user.type'
+import { TimeSort } from '@/types/user.type'
 import { FC } from 'react'
 
 import {
@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/Dropdown'
 
 interface Props {
-	filter: TxFilter
-	setFilter: React.Dispatch<React.SetStateAction<TxFilter>>
+	filter: TimeSort
+	setFilter: React.Dispatch<React.SetStateAction<TimeSort>>
 }
 
-const TxFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
-	const filters = [TxFilter.DEPOSIT, TxFilter.WITHDRAWAL, TxFilter.SWAP]
+const TimeSortDropdown: FC<Props> = ({ filter, setFilter }) => {
+	const filters = [TimeSort.RECENTLY, TimeSort.OLDEST]
 
 	return (
 		<DropdownMenu>
@@ -42,4 +42,4 @@ const TxFilterDropdown: FC<Props> = ({ filter, setFilter }) => {
 	)
 }
 
-export default TxFilterDropdown
+export default TimeSortDropdown

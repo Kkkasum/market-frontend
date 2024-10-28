@@ -42,7 +42,7 @@ const Modal: FC<Props> = ({ modalOpen, setModalOpen, header, children }) => {
 					animate={{ opacity: 1 }}
 					onClick={handleClose}
 					ref={scope}
-					className='fixed inset-0'
+					className='fixed inset-0 backdrop-blur-xl'
 				>
 					<motion.div
 						id='drawer'

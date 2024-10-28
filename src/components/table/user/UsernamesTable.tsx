@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
-import { StatusMarket, StatusWallet } from '@/components/ui/Status'
+import { StatusMarket, StatusWallet } from '@/components/market/Status'
 import Table from '@/components/ui/Table'
 import { ROUTE_USERNAME } from '@/routes'
 import { IUsername, UsernameStatus } from '@/types/username.type'
