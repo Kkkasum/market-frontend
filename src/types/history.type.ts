@@ -1,4 +1,4 @@
-import { IMarketAction } from './market.type'
+import { MarketAction } from './market.type'
 
 export interface ITx {
 	id: number
@@ -36,7 +36,7 @@ export interface INftWithdrawalTx extends INftDepositTx {
 
 export interface IMarketOrder {
 	id: number
-	action: IMarketAction
+	action: MarketAction
 	nftName: string
 	nftAddress: string
 	price: string

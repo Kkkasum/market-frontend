@@ -147,7 +147,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 					type='submit'
 				>
 					{isError ? (
-						'Some error occurred'
+						"Something's went wrong. Try again later"
 					) : isWithdrawPending ? (
 						<Loader size={24} />
 					) : (

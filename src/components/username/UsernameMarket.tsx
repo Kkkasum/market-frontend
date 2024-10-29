@@ -87,92 +87,99 @@ const UsernameMarket: FC<Props> = ({
 				</p>
 			</div>
 
-			{userId === ownerId ? (
-				<div
-					className={twMerge(
-						'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 gap-5 bg-[#1A2026] font-bold',
-						modalOpen && 'blurred'
-					)}
-				>
+			<div
+				className={twMerge(
+					'flex items-center justify-center fixed left-0 right-0 bottom-0 mx-auto w-full px-5 py-5 bg-[#1A2026] font-bold',
+					modalOpen && 'blurred'
+				)}
+			>
+				{userId === ownerId ? (
+					<Button
+						className='w-full'
+						disabled={isRemovePending}
+						onClick={() => removeUsername(id)}
+					>
+						{isRemovePending ? (
+							<Loader size={24} />
+						) : (
+							'Remove from market'
+						)}
+					</Button>
+				) : (
 					<Button
 						className='w-full'
 						disabled={false}
-						onClick={() => removeUsername(id)}
+						onClick={() => setModalOpen(true)}
 					>
-						Remove from market
+						Buy
 					</Button>
-				</div>
+				)}
+			</div>
+
+			{userId !== ownerId ? (
+				<Modal
+					modalOpen={modalOpen}
+					setModalOpen={setModalOpen}
+					header='Confirm'
+				>
+					{user.isLoading ? (
+						<Loader />
+					) : user.data ? (
+						<>
+							<div className='flex flex-col gap-3 mb-3'>
+								<p className='flex items-center justify-between'>
+									<span>Username</span>
+									<span>@{username}</span>
+								</p>
+
+								<p className='flex items-center justify-between'>
+									<span>Price</span>
+									<span className='flex items-center gap-1'>
+										<TonIcon
+											width={16}
+											height={16}
+											color='#4EB2FF'
+										/>
+										{price}
+									</span>
+								</p>
+							</div>
+
+							<Button
+								className={twMerge(
+									'w-full font-bold',
+									(user.data.tonBalance < price || isError) &&
+										'bg-red-700'
+								)}
+								disabled={
+									isBuyPending ||
+									user.data.tonBalance < price ||
+									isError
+								}
+								onClick={() =>
+									buyUsername({
+										userId: userId,
+										username: username,
+									})
+								}
+							>
+								{user.data.tonBalance < price ? (
+									'Insufficient funds'
+								) : isBuyPending ? (
+									<Loader size={24} />
+								) : isError ? (
+									'Insufficient funds'
+								) : (
+									'Confirm'
+								)}
+							</Button>
+						</>
+					) : (
+						<span>Something's went wrong. Try again later</span>
+					)}
+				</Modal>
 			) : (
-				<>
-					<div
-						className={twMerge(
-							'flex items-center justify-center px-5 gap-5 absolute left-0 bottom-10 w-full',
-							modalOpen && 'blurred'
-						)}
-					>
-						<Button
-							className='w-full'
-							disabled={false}
-							onClick={() => setModalOpen(true)}
-						>
-							Buy
-						</Button>
-					</div>
-
-					<Modal
-						modalOpen={modalOpen}
-						setModalOpen={setModalOpen}
-						header='Confirm'
-					>
-						{user.isLoading ? (
-							<Loader />
-						) : user.data ? (
-							<>
-								<div className='flex flex-col gap-3 mb-3'>
-									<p className='flex items-center justify-between'>
-										<span>Username</span>
-										<span>@{username}</span>
-									</p>
-
-									<p className='flex items-center justify-between'>
-										<span>Price</span>
-										<span className='flex items-center gap-1'>
-											<TonIcon
-												width={16}
-												height={16}
-												color='#4EB2FF'
-											/>
-											{price}
-										</span>
-									</p>
-								</div>
-
-								<Button
-									className={twMerge(
-										'w-full',
-										user.data.tonBalance < price &&
-											'bg-red-700'
-									)}
-									disabled={
-										isBuyPending ||
-										user.data.tonBalance < price
-									}
-									onClick={() => buyUsername()}
-								>
-									{user.data.tonBalance < price ? (
-										'Insufficient funds'
-									) : isBuyPending ? (
-										<Loader size={24} />
-									) : (
-										'Confirm'
-									)}
-								</Button>
-							</>
-						) : (
-							<span>Something's went wrong. Try again later</span>
-						)}
-					</Modal>
-				</>
+				<></>
 			)}
 		</>
 	)

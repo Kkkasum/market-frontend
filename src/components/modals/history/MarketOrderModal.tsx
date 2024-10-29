@@ -4,7 +4,7 @@ import { MarketBuy, MarketSell } from '@/components/market/MarketActions'
 import TonIcon from '@/components/ui/icons/TonIcon'
 import Modal from '@/components/ui/Modal'
 import { IMarketOrder } from '@/types/history.type'
-import { IMarketAction } from '@/types/market.type'
+import { MarketAction } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
 import isNumber from '@/utils/isNumber'
 
@@ -45,7 +45,7 @@ const MarketOrderModal: FC<Props> = ({ modalOpen, setModalOpen, order }) => {
 				<p className='flex items-center justify-between font-medium'>
 					<span>Action</span>
 
-					{order.action === IMarketAction.BUY ? (
+					{order.action === MarketAction.BUY ? (
 						<MarketBuy />
 					) : (
 						<MarketSell />

@@ -90,10 +90,14 @@ const NumberMarket: FC<Props> = ({
 				{userId === ownerId ? (
 					<Button
 						className='w-full'
-						disabled={false}
+						disabled={isRemovePending}
 						onClick={() => removeNumber(id)}
 					>
-						Remove from market
+						{isRemovePending ? (
+							<Loader size={24} />
+						) : (
+							'Remove from market'
+						)}
 					</Button>
 				) : (
 					<Button

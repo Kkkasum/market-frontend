@@ -126,7 +126,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 					type='submit'
 				>
 					{isError ? (
-						'Some error occurred'
+						"Something's went wrong. Try again later"
 					) : isWithdrawPending ? (
 						<Loader size={24} />
 					) : (

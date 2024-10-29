@@ -89,7 +89,7 @@ const UsernameForm: FC<Props> = ({ userId, usernames }) => {
 					type='submit'
 				>
 					{isError ? (
-						'Some error occurred'
+						"Something's went wrong. Try again later"
 					) : isWithdrawPending ? (
 						<Loader size={24} />
 					) : (

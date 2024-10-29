@@ -5,7 +5,7 @@ import MarketOrderModal from '@/components/modals/history/MarketOrderModal'
 import TonIcon from '@/components/ui/icons/TonIcon'
 import Table from '@/components/ui/Table'
 import { IMarketOrder } from '@/types/history.type'
-import { IMarketAction } from '@/types/market.type'
+import { MarketAction } from '@/types/market.type'
 import { formatNumber } from '@/utils/formatters'
 import isNumber from '@/utils/isNumber'
 
@@ -40,7 +40,7 @@ const MarketOrderTable: FC<Props> = ({ orders }) => {
 						</th>
 
 						<td>
-							{order.action === IMarketAction.BUY ? (
+							{order.action === MarketAction.BUY ? (
 								<MarketBuy />
 							) : (
 								<MarketSell />

@@ -4,13 +4,22 @@ import {
 	IAddMarketUsernameRequest,
 	IBuyNumberRequest,
 	IBuyUsernameRequest,
+	IFeeResponse,
 	IInstantSellNumberPriceResponse,
 	IInstantSellNumberRequest,
 	IMarketNumbersResponse,
 	IMarketUsernamesResponse,
+	MarketAction,
 } from '@/types/market.type'
 
 const MarketService = {
+	async getFee(action: MarketAction) {
+		const response = await axiosBase.get<IFeeResponse>('/market/fee', {
+			params: { action: action },
+		})
+		return response.data
+	},
+
 	async getNumbers() {
 		const response = await axiosBase.get<IMarketNumbersResponse>(
 			'/market/numbers'
