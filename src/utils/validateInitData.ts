@@ -1,6 +1,13 @@
 import * as crypto from 'crypto'
 
-export default function validateInitData(initData: string, botToken: string) {
+export default function validateInitData(
+	initData?: string,
+	botToken?: string
+): boolean {
+	if (!initData || !botToken) {
+		return false
+	}
+
 	const urlSearchParams = new URLSearchParams(initData)
 	const data = Object.fromEntries(urlSearchParams.entries())
 

@@ -1,31 +1,35 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
+import { useTelegram } from '@/hooks/useTelegram'
 import { ROUTE_ONBOARDING, ROUTE_USER } from '@/routes'
+import validateInitData from '@/utils/validateInitData'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
-	let userId = 1
-	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
-		userId = WebApp.initDataUnsafe.user?.id
-	}
-
+	const { user, webApp } = useTelegram()
 	const { push } = useRouter()
-	const { data, isLoading } = useUser(userId)
+	const { data, isLoading } = useUser(user?.id || 1)
 
 	useEffect(() => {
 		if (!isLoading) {
-			setTimeout(() => {
-				if (data) {
-					push(ROUTE_USER)
-				} else {
-					push(ROUTE_ONBOARDING)
-				}
-			}, 2000)
+			if (
+				validateInitData(
+					webApp?.initData,
+					'7263023196:AAEUAtCibJXqPgnUC1mTOkkjr1V-2eiZGjk'
+				)
+			) {
+				setTimeout(() => {
+					if (data) {
+						push(ROUTE_USER)
+					} else {
+						push(ROUTE_ONBOARDING)
+					}
+				}, 2000)
+			}
 		}
 	}, [isLoading])
 
