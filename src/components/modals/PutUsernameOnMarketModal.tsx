@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'

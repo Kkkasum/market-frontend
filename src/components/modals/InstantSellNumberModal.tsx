@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC } from 'react'
 
 import useInstantSellPrice from '@/app/main/market/hooks/useInstantSellPrice'

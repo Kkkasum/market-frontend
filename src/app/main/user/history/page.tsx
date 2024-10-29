@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
 import AssetFilterDropdown from '@/components/dropdown/AssetFilterDropdown'

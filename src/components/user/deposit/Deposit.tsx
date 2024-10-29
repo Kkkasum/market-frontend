@@ -1,3 +1,4 @@
+import WebApp from '@twa-dev/sdk'
 import { FC, useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 

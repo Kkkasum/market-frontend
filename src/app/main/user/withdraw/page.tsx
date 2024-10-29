@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'

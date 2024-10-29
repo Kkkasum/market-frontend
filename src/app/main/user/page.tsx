@@ -1,5 +1,7 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
+
 import Loader from '@/components/ui/Loader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
