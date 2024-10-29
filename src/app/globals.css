@@ -88,6 +88,6 @@ body {
 	}
 
 	.fixed-button {
-		bottom: 0;
+		bottom: calc(var(--lvh, 100vh) - var(--tg-viewport-height, 100vh));
 	}
 }

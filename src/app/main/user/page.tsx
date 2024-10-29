@@ -13,7 +13,7 @@ export default function Page() {
 		userId = WebApp.initDataUnsafe.user?.id
 	}
 
-	const { data, isLoading } = useUser(6640542382)
+	const { data, isLoading } = useUser(userId)
 
 	return isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />
