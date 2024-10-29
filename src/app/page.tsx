@@ -4,30 +4,33 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
-import { useTelegram } from '@/hooks/useTelegram'
 import { ROUTE_ONBOARDING, ROUTE_USER } from '@/routes'
-import validateInitData from '@/utils/validateInitData'
+import WebApp from '@twa-dev/sdk'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
 	const [enabled, setEnabled] = useState<boolean>(false)
 
-	const { user, webApp } = useTelegram()
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
+
 	const { push } = useRouter()
-	const { data, isLoading } = useUser(user?.id)
+	const { data, isLoading } = useUser(userId)
+
+	// useEffect(() => {
+	// 	if (
+	// 		user?.id &&
+	// 		validateInitData(webApp?.initData, process.env.BOT_TOKEN)
+	// 	) {
+	// 		console.log(1)
+	// 		setEnabled(true)
+	// 	}
+	// }, [])
 
 	useEffect(() => {
-		if (
-			user?.id &&
-			validateInitData(webApp?.initData, process.env.BOT_TOKEN)
-		) {
-			console.log(1)
-			setEnabled(true)
-		}
-	}, [])
-
-	useEffect(() => {
-		if (enabled && !isLoading) {
+		if (!isLoading) {
 			console.log(2)
 			setTimeout(() => {
 				if (data) {
@@ -37,7 +40,7 @@ export default function Page() {
 				}
 			}, 2000)
 		}
-	}, [enabled])
+	}, [isLoading])
 
 	return <LogoLoader />
 }
