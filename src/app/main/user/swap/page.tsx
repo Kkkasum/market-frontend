@@ -15,6 +15,7 @@ import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
+import WebApp from '@twa-dev/sdk'
 import useUser from '../hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
@@ -25,7 +26,10 @@ interface IForm {
 }
 
 export default function Page() {
-	const userId = 6640542382 // fix
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')

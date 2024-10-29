@@ -26,7 +26,10 @@ const PutNumberOnMarketModal: FC<Props> = ({
 	numberId,
 	number,
 }) => {
-	const userId = 6640542382 // fix
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
 
 	const { addNumber, isAddPending } = useAddNumber(userId, number)
 

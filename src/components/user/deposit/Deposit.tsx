@@ -19,7 +19,10 @@ interface Props {
 }
 
 const Deposit: FC<Props> = ({ asset, network }) => {
-	const userId = 6640542382 // fix
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
 
 	const [isCopied, setIsCopied] = useState<boolean>(false)
 	const { data, isLoading } = useDepositAddress(network, userId)

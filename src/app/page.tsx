@@ -8,7 +8,10 @@ import { ROUTE_ONBOARDING, ROUTE_USER } from '@/routes'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
-	const userId = 6640542382 // fix
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
 
 	const { push } = useRouter()
 	const { data, isLoading } = useUser(userId)

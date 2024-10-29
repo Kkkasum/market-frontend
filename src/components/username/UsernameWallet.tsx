@@ -12,7 +12,10 @@ import Button from '../ui/Button'
 interface Props extends IUsernameWithOwner {}
 
 const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
-	const userId = 6640542382 // fix
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
 
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
 		useState<boolean>(false)
