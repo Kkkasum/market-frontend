@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import LogoLoader from '@/components/ui/LogoLoader'
 import { useTelegram } from '@/hooks/useTelegram'
@@ -10,26 +10,32 @@ import validateInitData from '@/utils/validateInitData'
 import useUser from './main/user/hooks/useUser'
 
 export default function Page() {
+	const [enabled, setEnabled] = useState<boolean>(false)
+
 	const { user, webApp } = useTelegram()
 	const { push } = useRouter()
-	const { data, isLoading } = useUser(user?.id || 1)
+	const { data, isLoading } = useUser(user?.id)
+
+	useEffect(() => {
+		if (
+			user?.id &&
+			validateInitData(webApp?.initData, process.env.BOT_TOKEN)
+		) {
+			console.log(1)
+			setEnabled(true)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (!isLoading) {
-			if (
-				validateInitData(
-					webApp?.initData,
-					'7263023196:AAEUAtCibJXqPgnUC1mTOkkjr1V-2eiZGjk'
-				)
-			) {
-				setTimeout(() => {
-					if (data) {
-						push(ROUTE_USER)
-					} else {
-						push(ROUTE_ONBOARDING)
-					}
-				}, 2000)
-			}
+			console.log(2)
+			setTimeout(() => {
+				if (data) {
+					push(ROUTE_USER)
+				} else {
+					push(ROUTE_ONBOARDING)
+				}
+			}, 2000)
 		}
 	}, [isLoading])
 
