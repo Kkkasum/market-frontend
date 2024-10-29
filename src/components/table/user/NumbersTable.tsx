@@ -26,6 +26,7 @@ const NumbersTable: FC<Props> = ({ numbers }) => {
 					<th className='text-start font-medium'>
 						{formatNumber(n.number)}
 					</th>
+
 					<td className='relative'>
 						<p className='right-caret'>
 							{n.status === NumberStatus.MARKET ? (

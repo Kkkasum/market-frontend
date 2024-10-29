@@ -11,7 +11,6 @@ import { IMarketNumber } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
 import { StatusMarket } from '../market/Status'
 import Button from '../ui/Button'
-import Error from '../ui/Error'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
 import Modal from '../ui/Modal'
@@ -39,8 +38,6 @@ const NumberMarket: FC<Props> = ({
 
 	useBackButton(ROUTE_MARKET_NUMBERS)
 
-	console.log(userId)
-
 	return (
 		<>
 			<div
@@ -60,7 +57,7 @@ const NumberMarket: FC<Props> = ({
 				</p>
 
 				<p className='flex items-center justify-between font-medium w-full'>
-					<span>Address</span>
+					<span>NFT Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
 						href={`http://tonscan.org/address/${address}`}
@@ -84,13 +81,13 @@ const NumberMarket: FC<Props> = ({
 				</p>
 			</div>
 
-			{userId == ownerId ? (
-				<div
-					className={twMerge(
-						'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold',
-						modalOpen && 'blurred'
-					)}
-				>
+			<div
+				className={twMerge(
+					'flex items-center justify-center fixed left-0 right-0 bottom-0 mx-auto w-full px-5 py-5 bg-[#1A2026] font-bold',
+					modalOpen && 'blurred'
+				)}
+			>
+				{userId === ownerId ? (
 					<Button
 						className='w-full'
 						disabled={false}
@@ -98,87 +95,81 @@ const NumberMarket: FC<Props> = ({
 					>
 						Remove from market
 					</Button>
-				</div>
+				) : (
+					<Button
+						className='w-full'
+						disabled={false}
+						onClick={() => setModalOpen(true)}
+					>
+						Buy
+					</Button>
+				)}
+			</div>
+
+			{userId !== ownerId ? (
+				<Modal
+					modalOpen={modalOpen}
+					setModalOpen={setModalOpen}
+					header='Confirm'
+				>
+					{user.isLoading ? (
+						<Loader />
+					) : user.data ? (
+						<>
+							<div className='flex flex-col gap-3 mb-3'>
+								<p className='flex items-center justify-between'>
+									<span>Number</span>
+									<span>{formatNumber(number)}</span>
+								</p>
+
+								<p className='flex items-center justify-between'>
+									<span>Price</span>
+									<span className='flex items-center gap-1'>
+										<TonIcon
+											width={16}
+											height={16}
+											color='#4EB2FF'
+										/>
+										{price}
+									</span>
+								</p>
+							</div>
+
+							<Button
+								className={twMerge(
+									'w-full font-bold',
+									(user.data.tonBalance < price || isError) &&
+										'bg-red-700'
+								)}
+								disabled={
+									isBuyPending ||
+									user.data.tonBalance < price ||
+									isError
+								}
+								onClick={() =>
+									buyNumber({
+										userId: userId,
+										number: number,
+									})
+								}
+							>
+								{user.data.tonBalance < price ? (
+									'Insufficient funds'
+								) : isBuyPending ? (
+									<Loader size={24} />
+								) : isError ? (
+									'Insufficient funds'
+								) : (
+									'Confirm'
+								)}
+							</Button>
+						</>
+					) : (
+						<span>Something's went wrong. Try again later</span>
+					)}
+				</Modal>
 			) : (
-				<>
-					<div
-						className={twMerge(
-							'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold',
-							modalOpen && 'blurred'
-						)}
-					>
-						<Button
-							className='w-full'
-							disabled={false}
-							onClick={() => setModalOpen(true)}
-						>
-							Buy
-						</Button>
-					</div>
-
-					<Modal
-						modalOpen={modalOpen}
-						setModalOpen={setModalOpen}
-						header='Confirm'
-					>
-						{user.isLoading ? (
-							<Loader />
-						) : user.data ? (
-							<>
-								<div className='flex flex-col gap-3 mb-3'>
-									<p className='flex items-center justify-between'>
-										<span>Number</span>
-										<span>{formatNumber(number)}</span>
-									</p>
-
-									<p className='flex items-center justify-between'>
-										<span>Price</span>
-										<span className='flex items-center gap-1'>
-											<TonIcon
-												width={16}
-												height={16}
-												color='#4EB2FF'
-											/>
-											{price}
-										</span>
-									</p>
-								</div>
-
-								<Button
-									className={twMerge(
-										'w-full font-bold',
-										(user.data.tonBalance < price ||
-											isError) &&
-											'bg-red-700'
-									)}
-									disabled={
-										isBuyPending ||
-										user.data.tonBalance < price ||
-										isError
-									}
-									onClick={() =>
-										buyNumber({
-											userId: userId,
-											number: number,
-										})
-									}
-								>
-									{user.data.tonBalance < price ? (
-										'Insufficient funds'
-									) : isBuyPending ? (
-										<Loader size={24} />
-									) : isError ? (
-										'Insufficient funds'
-									) : (
-										'Confirm'
-									)}
-								</Button>
-							</>
-						) : (
-							<Error />
-						)}
-					</Modal>
-				</>
+				<></>
 			)}
 		</>
 	)

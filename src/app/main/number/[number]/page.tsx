@@ -21,6 +21,8 @@ export default function Page({ params }: { params: { number: string } }) {
 			<NumberMarket {...data} />
 		)
 	) : (
-		<span>Number {formatNumber(number)} not found</span>
+		<span className='flex items-center justify-center fixed bottom-0 left-0 w-full h-full'>
+			Number {formatNumber(number)} not found
+		</span>
 	)
 }

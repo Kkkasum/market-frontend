@@ -25,11 +25,13 @@ const UsernamesTable: FC<Props> = ({ usernames }) => {
 					<th className='text-start font-medium'>@{n.username}</th>
 
 					<td className='relative'>
-						{n.status === UsernameStatus.MARKET ? (
-							<StatusMarket />
-						) : (
-							<StatusWallet />
-						)}
+						<p className='right-caret'>
+							{n.status === UsernameStatus.MARKET ? (
+								<StatusMarket />
+							) : (
+								<StatusWallet />
+							)}
+						</p>
 					</td>
 				</tr>
 			))}

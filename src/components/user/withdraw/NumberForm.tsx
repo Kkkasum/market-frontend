@@ -2,11 +2,13 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
+import useFee from '@/app/main/user/withdraw/hooks/useFee'
 import useWithdrawNumber from '@/app/main/user/withdraw/hooks/useWithdrawNumber'
 import NumbersDropdown from '@/components/dropdown/NumbersDropdown'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
+import { NETWORK } from '@/types/deposit.type'
 import { INumber } from '@/types/number.type'
 import { validTonAddress } from '@/utils/validAddress'
 
@@ -21,6 +23,7 @@ interface IForm {
 
 const NumberForm: FC<Props> = ({ userId, numbers }) => {
 	const [number, setNumber] = useState<string>()
+	const { data, isLoading } = useFee(NETWORK.TON)
 	const { withdrawNumber, isWithdrawPending, isError } =
 		useWithdrawNumber(userId)
 	const {
@@ -39,7 +42,9 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 		}
 	}
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : data?.fee ? (
 		<form
 			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
@@ -78,6 +83,11 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 				setNumber={setNumber}
 			/>
 
+			<p className='flex items-center justify-between px-1'>
+				<span>Withdrawal Fees</span>
+				<span>{data.fee} TON</span>
+			</p>
+
 			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.address?.message}</span>
 			</p>
@@ -98,6 +108,8 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 				</Button>
 			</div>
 		</form>
+	) : (
+		<span>Something's went wrong. Try again later</span>
 	)
 }
 

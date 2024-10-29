@@ -3,7 +3,6 @@
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
-import AssetFilterDropdown from '@/components/dropdown/AssetFilterDropdown'
 import FilterDropdown from '@/components/dropdown/FilterDropdown'
 import TimeSortDropdown from '@/components/dropdown/TimeSortDropdown'
 import DepositTable from '@/components/table/history/DepositTable'
@@ -12,7 +11,6 @@ import NftDepositTable from '@/components/table/history/NftDepositTable'
 import NftWithdrawalTable from '@/components/table/history/NftWIthdrawalTable'
 import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
-import Error from '@/components/ui/Error'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
@@ -36,9 +34,7 @@ export default function Page() {
 
 	const { data, isLoading } = useUserHistory(userId)
 
-	const [assetFilter, setAssetFilter] = useState<AssetFilter>(
-		AssetFilter.TOKEN
-	)
+	const [assetFilter, setAssetFilter] = useState<string>(AssetFilter.TOKEN)
 	const [txFilter, setTxFilter] = useState<string>(TxFilter.DEPOSIT)
 	const [nftTxFilter, setNftTxFilter] = useState<string>(NftTxFilter.DEPOSIT)
 	const [timeSort, setTimeSort] = useState<TimeSort>(TimeSort.RECENTLY)
@@ -54,9 +50,11 @@ export default function Page() {
 	return (
 		<>
 			<div className='flex items-center gap-3'>
-				<AssetFilterDropdown
-					filter={assetFilter}
+				<FilterDropdown
+					currentFilter={assetFilter}
+					filters={[AssetFilter.TOKEN, AssetFilter.NFT]}
 					setFilter={setAssetFilter}
+					align='start'
 				/>
 
 				{assetFilter === AssetFilter.TOKEN ? (
@@ -68,6 +66,7 @@ export default function Page() {
 							TxFilter.SWAP,
 						]}
 						setFilter={setTxFilter}
+						align='center'
 					/>
 				) : assetFilter === AssetFilter.NFT ? (
 					<FilterDropdown
@@ -172,7 +171,7 @@ export default function Page() {
 						<></>
 					)
 				) : (
-					<Error />
+					<span>Something's went wrong. Try again later</span>
 				)}
 			</div>
 		</>

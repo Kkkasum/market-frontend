@@ -5,6 +5,7 @@ export default function validateInitData(
 	botToken?: string
 ): boolean {
 	if (!initData || !botToken) {
+		console.log('asd')
 		return false
 	}
 

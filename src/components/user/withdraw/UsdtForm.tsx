@@ -38,7 +38,9 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 		})
 	}
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : data?.fee ? (
 		<form
 			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
@@ -106,7 +108,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 
 				<p className='flex items-center justify-between px-1'>
 					<span>Withdrawal Fees</span>
-					<span>{data?.fee ? `${data.fee} USDT` : '-'}</span>
+					<span>{data.fee} USDT</span>
 				</p>
 			</div>
 
@@ -133,6 +135,8 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 				</Button>
 			</div>
 		</form>
+	) : (
+		<span>Something's went wrong. Try again later</span>
 	)
 }
 

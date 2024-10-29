@@ -59,7 +59,7 @@ const AssetDropdown: FC<Props> = ({ asset, setAsset }) => {
 						key={item.value}
 						className={twMerge(
 							'gap-2 h-11 px-3',
-							item.value === asset ? 'asset-checked' : ''
+							item.value === asset && 'asset-checked'
 						)}
 						onClick={() => setAsset(item.value)}
 					>

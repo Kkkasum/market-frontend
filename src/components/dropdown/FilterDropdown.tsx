@@ -11,9 +11,15 @@ interface Props {
 	currentFilter: string
 	filters: string[]
 	setFilter: React.Dispatch<React.SetStateAction<string>>
+	align?: 'center' | 'end' | 'start'
 }
 
-const FilterDropdown: FC<Props> = ({ currentFilter, filters, setFilter }) => {
+const FilterDropdown: FC<Props> = ({
+	currentFilter,
+	filters,
+	setFilter,
+	align,
+}) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex items-center justify-between px-2 py-2 bg-gray-blue rounded-lg outline-none'>
@@ -24,7 +30,7 @@ const FilterDropdown: FC<Props> = ({ currentFilter, filters, setFilter }) => {
 
 			<DropdownMenuContent
 				className='text-start text-white bg-gray-blue border-transparent rounded-xl'
-				align='center'
+				align={align}
 			>
 				{filters.map((f, index) => (
 					<DropdownMenuItem

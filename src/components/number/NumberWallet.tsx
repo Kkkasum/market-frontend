@@ -26,8 +26,6 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 
 	useBackButton(ROUTE_USER)
 
-	console.log(userId, ownerId)
-
 	return (
 		<>
 			<div
@@ -47,7 +45,7 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 				</p>
 
 				<p className='flex items-center justify-between font-medium w-full'>
-					<span>Address</span>
+					<span>NFT Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
 						href={`http://tonscan.org/address/${address}`}

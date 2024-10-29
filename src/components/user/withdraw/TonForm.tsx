@@ -5,7 +5,6 @@ import { twMerge } from 'tailwind-merge'
 import useFee from '@/app/main/user/withdraw/hooks/useFee'
 import useWithdrawTon from '@/app/main/user/withdraw/hooks/useWithdrawTon'
 import Button from '@/components/ui/Button'
-import Error from '@/components/ui/Error'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
@@ -43,7 +42,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 
 	return isLoading ? (
 		<Loader />
-	) : data && data.fee ? (
+	) : data?.fee ? (
 		<form
 			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
@@ -130,7 +129,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 
 				<p className='flex items-center justify-between px-1'>
 					<span>Withdrawal Fees</span>
-					<span>{data?.fee ? `${data.fee} TON` : '-'}</span>
+					<span>{data.fee} TON</span>
 				</p>
 			</div>
 
@@ -158,7 +157,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 			</div>
 		</form>
 	) : (
-		<Error />
+		<span>Something's went wrong. Try again later</span>
 	)
 }
 

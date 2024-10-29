@@ -11,7 +11,6 @@ import { IMarketUsername } from '@/types/market.type'
 import { formatAddress, formatDate } from '@/utils/formatters'
 import { StatusMarket } from '../market/Status'
 import Button from '../ui/Button'
-import Error from '../ui/Error'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
 import Modal from '../ui/Modal'
@@ -64,7 +63,7 @@ const UsernameMarket: FC<Props> = ({
 				</p>
 
 				<p className='flex items-center justify-between font-medium w-full'>
-					<span>Address</span>
+					<span>NFT Address</span>
 					<a
 						className='hover:text-blue transition-colors duration-300'
 						href={`https://tonscan.org/address/${address}`}
@@ -170,7 +169,7 @@ const UsernameMarket: FC<Props> = ({
 								</Button>
 							</>
 						) : (
-							<Error />
+							<span>Something's went wrong. Try again later</span>
 						)}
 					</Modal>
 				</>
