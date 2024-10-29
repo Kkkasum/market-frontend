@@ -3,7 +3,8 @@ import { Albert_Sans } from 'next/font/google'
 
 import Provider from './provider'
 
-import WebApp from '@twa-dev/sdk'
+import Head from 'next/head'
+import Script from 'next/script'
 import './globals.css'
 
 const font = Albert_Sans({ subsets: ['latin'] })
@@ -17,13 +18,13 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	if (typeof window !== 'undefined') {
-		WebApp.ready()
-	}
-
 	return (
 		<html lang='en'>
 			<body className={`${font.className} antialiased`}>
+				<Head>
+					<Script src='https://telegram.org/js/telegram-web-app.js' />
+				</Head>
+
 				<Provider>{children}</Provider>
 			</body>
 		</html>

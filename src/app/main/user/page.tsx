@@ -5,9 +5,13 @@ import WebApp from '@twa-dev/sdk'
 import Loader from '@/components/ui/Loader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
+import { useTelegram } from '@/hooks/useTelegram'
 import useUser from './hooks/useUser'
 
 export default function Page() {
+	const { user, webApp } = useTelegram()
+	console.log(user?.id, webApp?.initData)
+
 	let userId = 1
 	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
 		userId = WebApp.initDataUnsafe.user?.id
