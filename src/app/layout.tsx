@@ -12,13 +12,15 @@ export const metadata: Metadata = {
 	title: 'UseTON',
 }
 
-WebApp.ready()
-
 export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
 }>) {
+	if (typeof window !== 'undefined') {
+		WebApp.ready()
+	}
+
 	return (
 		<html lang='en'>
 			<body className={`${font.className} antialiased`}>
