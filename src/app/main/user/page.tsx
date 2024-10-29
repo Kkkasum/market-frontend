@@ -1,17 +1,12 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
-
 import Loader from '@/components/ui/Loader'
 import Balance from '@/components/user/Balance'
 import UserTabs from '@/components/user/UserTabs'
 import useUser from './hooks/useUser'
 
 export default function Page() {
-	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
-	}
+	const userId = 6640542382 // fix
 
 	const { data, isLoading } = useUser(userId)
 

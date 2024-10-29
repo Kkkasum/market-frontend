@@ -1,4 +1,3 @@
-import WebApp from '@twa-dev/sdk'
 import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -13,10 +12,7 @@ import Button from '../ui/Button'
 interface Props extends IUsernameWithOwner {}
 
 const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
-	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
-	}
+	const userId = 6640542382 // fix
 
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
 		useState<boolean>(false)

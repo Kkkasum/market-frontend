@@ -1,6 +1,5 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
 import AssetFilterDropdown from '@/components/dropdown/AssetFilterDropdown'
@@ -29,10 +28,7 @@ import { sortByTime } from '@/utils/sortByTime'
 import useUserHistory from '../hooks/useUserHistory'
 
 export default function Page() {
-	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
-	}
+	const userId = 6640542382 // fix
 
 	const { data, isLoading } = useUserHistory(userId)
 

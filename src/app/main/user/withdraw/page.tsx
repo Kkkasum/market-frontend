@@ -1,6 +1,5 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
 import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
@@ -21,10 +20,7 @@ export interface IForm {
 }
 
 export default function Page() {
-	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
-	}
+	const userId = 6640542382 // fix
 
 	const [asset, setAsset] = useState<Asset>()
 	const { data, isLoading } = useUser(userId)

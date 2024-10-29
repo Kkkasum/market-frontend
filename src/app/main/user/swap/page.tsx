@@ -1,6 +1,5 @@
 'use client'
 
-import WebApp from '@twa-dev/sdk'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -26,10 +25,7 @@ interface IForm {
 }
 
 export default function Page() {
-	let userId = 1
-	if (typeof window !== 'undefined') {
-		userId = WebApp.initDataUnsafe.user?.id || 1
-	}
+	const userId = 6640542382 // fix
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')
