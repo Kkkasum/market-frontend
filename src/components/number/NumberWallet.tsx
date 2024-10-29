@@ -26,6 +26,8 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 
 	useBackButton(ROUTE_USER)
 
+	console.log(userId, ownerId)
+
 	return (
 		<>
 			<div
@@ -56,7 +58,7 @@ const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
 				</p>
 			</div>
 
-			{userId === ownerId && (
+			{userId == ownerId && (
 				<>
 					<div
 						className={twMerge(

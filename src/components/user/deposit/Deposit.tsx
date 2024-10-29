@@ -127,7 +127,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 				</a>
 
 				<Button
-					className='flex items-center gap-1 w-full h-12'
+					className='flex items-center gap-1 w-1/2 h-12'
 					onClick={handleCopy}
 					disabled={isCopied}
 				>

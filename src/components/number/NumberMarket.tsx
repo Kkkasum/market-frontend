@@ -28,7 +28,7 @@ const NumberMarket: FC<Props> = ({
 }) => {
 	let userId = 1
 	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
-		userId = WebApp.initDataUnsafe.user?.id
+		userId = Number(WebApp.initDataUnsafe.user?.id)
 	}
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
@@ -38,6 +38,8 @@ const NumberMarket: FC<Props> = ({
 	const { removeNumber, isRemovePending } = useRemoveNumber(userId, number)
 
 	useBackButton(ROUTE_MARKET_NUMBERS)
+
+	console.log(userId)
 
 	return (
 		<>
@@ -82,7 +84,7 @@ const NumberMarket: FC<Props> = ({
 				</p>
 			</div>
 
-			{userId === ownerId ? (
+			{userId == ownerId ? (
 				<div
 					className={twMerge(
 						'flex items-center justify-center fixed left-0 right-0 mx-auto bottom-0 w-full px-5 py-5 bg-[#1A2026] font-bold',
