@@ -3,6 +3,7 @@ import { Albert_Sans } from 'next/font/google'
 
 import Provider from './provider'
 
+import WebApp from '@twa-dev/sdk'
 import './globals.css'
 
 const font = Albert_Sans({ subsets: ['latin'] })
@@ -10,6 +11,8 @@ const font = Albert_Sans({ subsets: ['latin'] })
 export const metadata: Metadata = {
 	title: 'UseTON',
 }
+
+WebApp.ready()
 
 export default function RootLayout({
 	children,

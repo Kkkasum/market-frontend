@@ -86,4 +86,8 @@ body {
 		-ms-filter: blur(1px);
 		filter: blur(1px);
 	}
+
+	.fixed-button {
+		bottom: 0;
+	}
 }
