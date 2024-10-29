@@ -26,7 +26,10 @@ const PutUsernameOnMarketModal: FC<Props> = ({
 	usernameId,
 	username,
 }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = WebApp.initDataUnsafe.user?.id || 1
+	}
 
 	const { addUsername, isAddPending } = useAddUsername(userId, username)
 

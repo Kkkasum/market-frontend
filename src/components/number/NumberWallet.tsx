@@ -14,7 +14,10 @@ import Button from '../ui/Button'
 interface Props extends INumberWithOwner {}
 
 const NumberWallet: FC<Props> = ({ id, number, address, ownerId }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = WebApp.initDataUnsafe.user?.id || 1
+	}
 
 	const [instantSellModalOpen, setInstantSellModalOpen] =
 		useState<boolean>(false)

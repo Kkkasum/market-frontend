@@ -9,6 +9,7 @@ import { twMerge } from 'tailwind-merge'
 import SwapTokenDropdown from '@/components/dropdown/SwapTokenDropdown'
 import SwapModal from '@/components/modals/SwapModal'
 import Button from '@/components/ui/Button'
+import Error from '@/components/ui/Error'
 import Frame from '@/components/ui/Frame'
 import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
@@ -125,7 +126,7 @@ export default function Page() {
 	return isSwapAvailable.isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : isSwapAvailable.isError ? (
-		<span className='flex items-center justify-center fixed bottom-0 left-0 w-full h-full'>
+		<span className='flex items-center justify-center w-full h-full'>
 			Service is unavailable. Try again later
 		</span>
 	) : user.data ? (
@@ -251,6 +252,6 @@ export default function Page() {
 			)}
 		</form>
 	) : (
-		<span>Something's gone wrong. Try again later</span>
+		<Error />
 	)
 }

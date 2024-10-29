@@ -4,6 +4,7 @@ import QRCode from 'react-qr-code'
 
 import useDepositAddress from '@/app/main/user/deposit/hooks/useDepositAddress'
 import Button from '@/components/ui/Button'
+import Error from '@/components/ui/Error'
 import CheckIcon from '@/components/ui/icons/CheckIcon'
 import CopyIcon from '@/components/ui/icons/CopyIcon'
 import ShowIcon from '@/components/ui/icons/ShowIcon'
@@ -145,7 +146,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 			</div>
 		</div>
 	) : (
-		<span>Something's gone wrong. Try again later</span>
+		<Error />
 	)
 }
 

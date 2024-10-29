@@ -4,6 +4,7 @@ import WebApp from '@twa-dev/sdk'
 import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
+import Error from '@/components/ui/Error'
 import Loader from '@/components/ui/Loader'
 import NumberForm from '@/components/user/withdraw/NumberForm'
 import TonForm from '@/components/user/withdraw/TonForm'
@@ -62,6 +63,6 @@ export default function Page() {
 				))}
 		</div>
 	) : (
-		<span>Something's gone wrong. Try again later</span>
+		<Error />
 	)
 }

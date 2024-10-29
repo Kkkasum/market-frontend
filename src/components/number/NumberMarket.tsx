@@ -11,6 +11,7 @@ import { IMarketNumber } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
 import { StatusMarket } from '../market/Status'
 import Button from '../ui/Button'
+import Error from '../ui/Error'
 import TonIcon from '../ui/icons/TonIcon'
 import Loader from '../ui/Loader'
 import Modal from '../ui/Modal'
@@ -25,7 +26,10 @@ const NumberMarket: FC<Props> = ({
 	createdAt,
 	ownerId,
 }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = WebApp.initDataUnsafe.user?.id || 1
+	}
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 
@@ -169,7 +173,7 @@ const NumberMarket: FC<Props> = ({
 								</Button>
 							</>
 						) : (
-							<span>Something's gone wrong. Try again later</span>
+							<Error />
 						)}
 					</Modal>
 				</>

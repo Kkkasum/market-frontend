@@ -9,14 +9,6 @@ const font = Albert_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
 	title: 'UseTON',
-	icons: {
-		icon: [
-			{
-				url: '/blue-ton.svg',
-				href: '/blue-ton.svg',
-			},
-		],
-	},
 }
 
 export default function RootLayout({

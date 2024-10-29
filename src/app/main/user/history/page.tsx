@@ -12,6 +12,7 @@ import NftDepositTable from '@/components/table/history/NftDepositTable'
 import NftWithdrawalTable from '@/components/table/history/NftWIthdrawalTable'
 import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
+import Error from '@/components/ui/Error'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
@@ -171,7 +172,7 @@ export default function Page() {
 						<></>
 					)
 				) : (
-					<span>Something's gone wrong. Try again later</span>
+					<Error />
 				)}
 			</div>
 		</>

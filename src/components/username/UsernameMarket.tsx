@@ -26,7 +26,10 @@ const UsernameMarket: FC<Props> = ({
 	createdAt,
 	ownerId,
 }) => {
-	const userId = WebApp.initDataUnsafe.user?.id || 1
+	let userId = 1
+	if (typeof window !== 'undefined') {
+		userId = WebApp.initDataUnsafe.user?.id || 1
+	}
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 

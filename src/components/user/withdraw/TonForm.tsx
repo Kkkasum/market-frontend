@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge'
 import useFee from '@/app/main/user/withdraw/hooks/useFee'
 import useWithdrawTon from '@/app/main/user/withdraw/hooks/useWithdrawTon'
 import Button from '@/components/ui/Button'
+import Error from '@/components/ui/Error'
 import Frame from '@/components/ui/Frame'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
@@ -157,7 +158,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 			</div>
 		</form>
 	) : (
-		<span>Something's gone wrong. Try again later</span>
+		<Error />
 	)
 }
 
