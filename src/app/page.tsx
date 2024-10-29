@@ -27,7 +27,7 @@ export default function Page() {
 	}, [])
 
 	useEffect(() => {
-		if (!isLoading) {
+		if (enabled && !isLoading) {
 			console.log(2)
 			setTimeout(() => {
 				if (data) {
@@ -37,7 +37,7 @@ export default function Page() {
 				}
 			}, 2000)
 		}
-	}, [isLoading])
+	}, [enabled])
 
 	return <LogoLoader />
 }

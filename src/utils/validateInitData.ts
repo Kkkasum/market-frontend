@@ -27,5 +27,7 @@ export default function validateInitData(
 		.update(checkString)
 		.digest('hex')
 
+	console.log(data.hash, signature)
+
 	return data.hash === signature
 }
