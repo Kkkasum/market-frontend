@@ -2,10 +2,12 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 
+import useFee from '@/app/main/user/withdraw/hooks/useFee'
 import useWithdrawUsername from '@/app/main/user/withdraw/hooks/useWithdrawUsername'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
+import { NETWORK } from '@/types/deposit.type'
 import { IUsername } from '@/types/username.type'
 import { validTonAddress } from '@/utils/validAddress'
 import UsernamesDropdown from '../../dropdown/UsernamesDropdown'
@@ -21,6 +23,7 @@ interface IForm {
 
 const UsernameForm: FC<Props> = ({ userId, usernames }) => {
 	const [username, setUsername] = useState<string>()
+	const { data, isLoading } = useFee(NETWORK.TON)
 	const { withdrawUsername, isWithdrawPending, isError } =
 		useWithdrawUsername(userId)
 	const {
@@ -39,7 +42,9 @@ const UsernameForm: FC<Props> = ({ userId, usernames }) => {
 		}
 	}
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : data?.fee ? (
 		<form
 			className='flex flex-col gap-5 w-full'
 			onSubmit={handleSubmit(onFormSubmit)}
@@ -78,6 +83,11 @@ const UsernameForm: FC<Props> = ({ userId, usernames }) => {
 				setUsername={setUsername}
 			/>
 
+			<p className='flex items-center justify-between px-1'>
+				<span>Withdrawal Fees</span>
+				<span>{data.fee} TON</span>
+			</p>
+
 			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.address?.message}</span>
 			</p>
@@ -98,6 +108,8 @@ const UsernameForm: FC<Props> = ({ userId, usernames }) => {
 				</Button>
 			</div>
 		</form>
+	) : (
+		<span>Something's went wrong. Try again later</span>
 	)
 }
 
