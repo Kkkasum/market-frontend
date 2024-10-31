@@ -17,8 +17,9 @@ interface Props {
 	toToken: string
 	toAmount: number
 	tokenRate: string
-	showLoader: boolean
+	isPending: boolean
 	isSuccess: boolean
+	isError: boolean
 }
 
 const SwapModal: FC<Props> = ({
@@ -29,8 +30,9 @@ const SwapModal: FC<Props> = ({
 	toToken,
 	toAmount,
 	tokenRate,
-	showLoader,
+	isPending,
 	isSuccess,
+	isError,
 }) => {
 	return (
 		<Modal modalOpen={modalOpen} setModalOpen={setModalOpen} header='Swap'>
@@ -78,11 +80,20 @@ const SwapModal: FC<Props> = ({
 				type='submit'
 				className={twMerge(
 					'w-full font-bold',
-					isSuccess && 'border-green bg-green/30'
+					isSuccess && 'border-green bg-green/30',
+					isError && 'border-red-600 bg-red-600/30'
 				)}
-				disabled={showLoader || isSuccess}
+				disabled={isPending || isSuccess || isError}
 			>
-				{showLoader ? <Loader /> : isSuccess ? 'Success' : 'Confirm'}
+				{isError ? (
+					"Something's went wrong. Try again later"
+				) : isPending ? (
+					<Loader size={24} />
+				) : isSuccess ? (
+					'Success'
+				) : (
+					'Confirm'
+				)}
 			</Button>
 		</Modal>
 	)

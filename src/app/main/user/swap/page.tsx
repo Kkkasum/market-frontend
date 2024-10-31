@@ -1,5 +1,6 @@
 'use client'
 
+import WebApp from '@twa-dev/sdk'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -15,7 +16,6 @@ import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
 import { ROUTE_USER } from '@/routes'
-import WebApp from '@twa-dev/sdk'
 import useUser from '../hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
@@ -31,10 +31,18 @@ export default function Page() {
 		userId = WebApp.initDataUnsafe.user?.id
 	}
 
+	useBackButton(ROUTE_USER)
+
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')
 	const [toToken, setToToken] = useState<string>('USDT')
 	const [toAmount, setToAmount] = useState<number>()
+
+	const isSwapAvailable = useIsSwapAvailable()
+	const user = useUser(userId)
+	const tokenRate = useTokenRate(fromToken, toToken)
+	const { addSwap, isAddPending, isError, isSuccess, resetAddSwap } =
+		useAddSwap(userId)
 
 	const {
 		register,
@@ -46,33 +54,8 @@ export default function Page() {
 		mode: 'onChange',
 	})
 
-	const isSwapAvailable = useIsSwapAvailable()
-	const user = useUser(userId)
-	const tokenRate = useTokenRate(
-		fromToken,
-		toToken,
-		!!getValues('fromAmount')
-	)
-	const { addUserSwap, resetUserSwap, isAddPending, isSwapSuccess } =
-		useAddSwap(userId)
-
-	let content: string
-	switch (true) {
-		case !getValues('fromAmount'):
-			content = 'Enter amount'
-			break
-		case !isValid:
-			content = 'Insufficient funds'
-			break
-		default:
-			content = 'Swap'
-			break
-	}
-
-	useBackButton(ROUTE_USER)
-
 	useEffect(() => {
-		if (tokenRate.data && isValid) {
+		if (tokenRate.data) {
 			setToAmount(+tokenRate.data.rate * getValues('fromAmount'))
 		}
 	}, [isValidating])
@@ -82,7 +65,7 @@ export default function Page() {
 			reset()
 			setToAmount(0)
 
-			resetUserSwap()
+			resetAddSwap()
 		}
 	}, [modalOpen])
 
@@ -115,15 +98,15 @@ export default function Page() {
 	}
 
 	const onFormSubmit = async (values: IForm) => {
-		await addUserSwap({
+		await addSwap({
 			userId: userId,
 			fromToken: fromToken,
-			fromAmount: values.fromAmount,
+			fromAmount: values.fromAmount.toString(),
 			toToken: toToken,
 		})
 	}
 
-	return isSwapAvailable.isLoading ? (
+	return isSwapAvailable.isLoading || user.isLoading ? (
 		<Loader className='fixed bottom-0 left-0 w-full h-full' />
 	) : isSwapAvailable.isError ? (
 		<span className='flex items-center justify-center w-full h-full'>
@@ -223,15 +206,17 @@ export default function Page() {
 						!!errors.fromAmount?.message &&
 							'border-red-600 bg-red-600/30'
 					)}
-					disabled={
-						!getValues('fromAmount') || !!errors.fromAmount?.message
-					}
+					disabled={!getValues('fromAmount') || !isValid}
 					onClick={e => {
 						e.preventDefault()
 						setModalOpen(true)
 					}}
 				>
-					{content}
+					{!!errors.fromAmount?.message
+						? 'Insufficient funds'
+						: !getValues('fromAmount')
+						? 'Enter amount'
+						: 'Swap'}
 				</Button>
 			</div>
 
@@ -244,8 +229,9 @@ export default function Page() {
 					toToken={toToken}
 					toAmount={toAmount}
 					tokenRate={tokenRate.data.rate}
-					showLoader={isAddPending}
-					isSuccess={isSwapSuccess}
+					isPending={isAddPending}
+					isSuccess={isSuccess}
+					isError={isError}
 				/>
 			) : (
 				<></>

@@ -65,10 +65,3 @@ export interface IUserHistoryResponse {
 export interface IAddUserRequest {
 	userId: number
 }
-
-export interface IAddUserSwapRequest {
-	userId: number
-	fromToken: string
-	fromAmount: number
-	toToken: string
-}

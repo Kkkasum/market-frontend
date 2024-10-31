@@ -1,20 +1,18 @@
+import SwapService from '@/services/swap.service'
+import { IAddSwapRequest } from '@/types/swap.type'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import UserService from '@/services/user.service'
-import { IAddUserSwapRequest } from '@/types/user.type'
-
-export default function useAddUserSwap(userId: number) {
+export default function useAddSwap(userId: number) {
 	const queryClient = useQueryClient()
 
 	const {
-		mutate: addUserSwap,
-		reset: resetUserSwap,
+		mutate: addSwap,
 		isPending: isAddPending,
-		isSuccess: isSwapSuccess,
+		isError,
+		isSuccess,
+		reset: resetAddSwap,
 	} = useMutation({
-		mutationKey: ['add-swap'],
-		mutationFn: (data: IAddUserSwapRequest) =>
-			UserService.addUserSwap(data),
+		mutationFn: (data: IAddSwapRequest) => SwapService.addSwap(data),
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: ['user', { userId: userId }],
@@ -22,5 +20,5 @@ export default function useAddUserSwap(userId: number) {
 		},
 	})
 
-	return { addUserSwap, resetUserSwap, isAddPending, isSwapSuccess }
+	return { addSwap, isAddPending, isError, isSuccess, resetAddSwap }
 }

@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query'
 import SwapService from '@/services/swap.service'
 
 export default function useIsSwapAvailable() {
-	const { data, isLoading, isError } = useQuery({
+	const { isLoading, isSuccess, isError } = useQuery({
 		queryKey: ['swap'],
 		queryFn: () => SwapService.getIsSwapAvailable(),
 	})
 
-	return { data, isLoading, isError }
+	return { isLoading, isSuccess, isError }
 }

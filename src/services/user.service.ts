@@ -1,7 +1,6 @@
 import { axiosBase } from '@/api/interceptors'
 import {
 	IAddUserRequest,
-	IAddUserSwapRequest,
 	IUserHistoryResponse,
 	IUserResponse,
 	IUserWalletResponse,
@@ -29,11 +28,6 @@ const UserService = {
 
 	async addUser(data: IAddUserRequest) {
 		const response = await axiosBase.post('/user', data)
-		return response.status
-	},
-
-	async addUserSwap(data: IAddUserSwapRequest) {
-		const response = await axiosBase.post('/user/swap', data)
 		return response.status
 	},
 }
