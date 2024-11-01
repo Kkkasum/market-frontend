@@ -31,6 +31,18 @@ const InstantSellNumberModal: FC<Props> = ({
 		number
 	)
 
+	const onClick = async () => {
+		if (data) {
+			await instantSellNumber({
+				userId: userId,
+				number: number,
+				price: data.price,
+			})
+
+			setModalOpen(false)
+		}
+	}
+
 	return (
 		<Modal
 			modalOpen={modalOpen}
@@ -63,13 +75,7 @@ const InstantSellNumberModal: FC<Props> = ({
 					<Button
 						className='w-full font-bold'
 						disabled={isSellPending || isError}
-						onClick={() =>
-							instantSellNumber({
-								userId: userId,
-								number: number,
-								price: data.price,
-							})
-						}
+						onClick={onClick}
 					>
 						{isSellPending ? (
 							<Loader size={24} />
