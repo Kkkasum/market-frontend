@@ -55,4 +55,6 @@ export interface IBuyUsernameRequest {
 	username: string
 }
 
-export interface IInstantSellNumberRequest extends IBuyNumberRequest {}
+export interface IInstantSellNumberRequest extends IBuyNumberRequest {
+	price: number
+}

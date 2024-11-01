@@ -67,6 +67,7 @@ const InstantSellNumberModal: FC<Props> = ({
 							instantSellNumber({
 								userId: userId,
 								number: number,
+								price: data.price,
 							})
 						}
 					>
