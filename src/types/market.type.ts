@@ -28,7 +28,7 @@ export interface IMarketUsernamesResponse {
 }
 
 export interface IInstantSellNumberPriceResponse {
-	price: string
+	price: number
 }
 
 export interface IAddMarketNumberRequest {
