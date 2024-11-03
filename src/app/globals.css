@@ -8,6 +8,11 @@ body {
 	text-align: center;
 	color: #fff;
 	background-color: #1a2026;
+
+	touch-action: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-user-select: none;
 }
 
 @layer utilities {
