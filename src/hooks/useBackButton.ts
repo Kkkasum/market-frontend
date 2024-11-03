@@ -1,16 +1,19 @@
 import WebApp from '@twa-dev/sdk'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 export default function useBackButton(route: string) {
-	const { push } = useRouter()
+	const router = useRouter()
+
+	const handleBackButtonClick = useCallback(() => router.back(), [router])
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			WebApp.BackButton.show()
-			WebApp.BackButton.onClick(() => push(route))
-		}
+		WebApp.BackButton.onClick(handleBackButtonClick)
+		WebApp.BackButton.show()
 
-		return () => WebApp.BackButton.hide()
+		return () => {
+			WebApp.BackButton.hide()
+			WebApp.BackButton.offClick(handleBackButtonClick)
+		}
 	}, [])
 }

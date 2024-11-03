@@ -7,7 +7,6 @@ body {
 	text-align: center;
 	color: #fff;
 	background-color: #1a2026;
-	margin: 0;
 	touch-action: pan-y;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
