@@ -58,7 +58,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 					Send only
 					{asset === Asset.NUMBER ? (
 						<a
-							href='https://tonscan.org/EQAOQdwdw8kGftJCSFgOErM1mBjYPe4DBPq8-AhF6vr9si5N'
+							href='https://tonscan.org/nft/EQAOQdwdw8kGftJCSFgOErM1mBjYPe4DBPq8-AhF6vr9si5N'
 							target='_blank'
 							className='text-blue font-bold'
 						>
@@ -66,7 +66,7 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 						</a>
 					) : asset === Asset.USERNAME ? (
 						<a
-							href='https://tonscan.org/EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi'
+							href='https://tonscan.org/nft/EQCA14o1-VWhS2efqoh_9M1b_A9DtKTuoqfmkn83AbJzwnPi'
 							target='_blank'
 							className='text-blue font-bold'
 						>

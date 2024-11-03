@@ -8,16 +8,13 @@ body,
 	height: 100%;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
 body {
 	box-sizing: border-box;
 	text-align: center;
 	color: #fff;
 	background-color: #1a2026;
+	margin: 0;
+	touch-action: pan-y;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-user-select: none;
