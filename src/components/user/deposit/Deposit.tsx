@@ -93,7 +93,11 @@ const Deposit: FC<Props> = ({ asset, network }) => {
 						<span className='w-full'>{userId}</span>
 					</p>
 
-					<Warning text='Minimun deposit amount: 0.5 TON' />
+					{asset === Asset.TON ? (
+						<Warning text='Minimun deposit amount: 0.5 TON' />
+					) : (
+						<></>
+					)}
 
 					<Warning
 						text='Please fill in both the deposit address and Tag/Memo
