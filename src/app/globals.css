@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#root {
+	height: 100%;
+}
+
 body {
 	box-sizing: border-box;
-	height: 100%;
 	text-align: center;
 	color: #fff;
 	background-color: #1a2026;
