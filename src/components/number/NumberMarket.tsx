@@ -6,7 +6,6 @@ import useBuyNumber from '@/app/main/number/hooks/useBuyNumber'
 import useRemoveNumber from '@/app/main/number/hooks/useRemoveNumber'
 import useUser from '@/app/main/user/hooks/useUser'
 import useBackButton from '@/hooks/useBackButton'
-import { ROUTE_MARKET_NUMBERS } from '@/routes'
 import { IMarketNumber } from '@/types/market.type'
 import { formatAddress, formatDate, formatNumber } from '@/utils/formatters'
 import { StatusMarket } from '../market/Status'
@@ -36,7 +35,7 @@ const NumberMarket: FC<Props> = ({
 	const { buyNumber, isBuyPending, isError } = useBuyNumber(userId, number)
 	const { removeNumber, isRemovePending } = useRemoveNumber(userId, number)
 
-	useBackButton(ROUTE_MARKET_NUMBERS)
+	useBackButton()
 
 	return (
 		<>

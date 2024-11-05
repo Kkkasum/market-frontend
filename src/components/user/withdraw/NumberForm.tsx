@@ -32,9 +32,9 @@ const NumberForm: FC<Props> = ({ userId, numbers }) => {
 		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
-	const onFormSubmit = ({ address }: IForm) => {
+	const onFormSubmit = async ({ address }: IForm) => {
 		if (number) {
-			withdrawNumber({
+			await withdrawNumber({
 				userId: userId,
 				address: address,
 				number: number,

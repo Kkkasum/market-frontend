@@ -12,6 +12,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '../ui/Dropdown'
+import RubIcon from '../ui/icons/RubIcon'
 
 interface Props {
 	asset?: Asset
@@ -27,6 +28,10 @@ const AssetDropdown: FC<Props> = ({ asset, setAsset }) => {
 		{
 			svg: <UsdtIcon width={24} height={24} />,
 			value: Asset.USDT,
+		},
+		{
+			svg: <RubIcon />,
+			value: Asset.RUB,
 		},
 		{
 			svg: <TelegramIcon />,

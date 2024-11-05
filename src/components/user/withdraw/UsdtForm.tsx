@@ -30,8 +30,8 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
-	const onFormSubmit = ({ address, amount }: IForm) => {
-		withdrawUsdt({
+	const onFormSubmit = async ({ address, amount }: IForm) => {
+		await withdrawUsdt({
 			userId: userId,
 			address: address,
 			amount: amount,
@@ -89,7 +89,7 @@ const UsdtForm: FC<Props> = ({ userId, usdtBalance }) => {
 							valueAsNumber: true,
 							min: {
 								value: 10,
-								message: 'The minimum withdrawal amount is 10',
+								message: 'Minimum withdrawal amount is 10',
 							},
 							max: {
 								value: usdtBalance,

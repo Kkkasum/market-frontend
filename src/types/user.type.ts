@@ -34,6 +34,7 @@ export enum TimeSort {
 export enum Asset {
 	TON = 'TON',
 	USDT = 'USDT',
+	RUB = 'RUB',
 	NUMBER = 'Number',
 	USERNAME = 'Username',
 }

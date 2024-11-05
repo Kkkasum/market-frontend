@@ -15,7 +15,6 @@ import SwapIcon from '@/components/ui/icons/user/SwapIcon'
 import Input from '@/components/ui/Input'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
-import { ROUTE_USER } from '@/routes'
 import useUser from '../hooks/useUser'
 import useAddSwap from './hooks/useAddSwap'
 import useIsSwapAvailable from './hooks/useIsSwapAvailable'
@@ -31,7 +30,7 @@ export default function Page() {
 		userId = WebApp.initDataUnsafe.user?.id
 	}
 
-	useBackButton(ROUTE_USER)
+	useBackButton()
 
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [fromToken, setFromToken] = useState<string>('TON')
@@ -128,7 +127,7 @@ export default function Page() {
 							valueAsNumber: true,
 							min: {
 								value: 0.01,
-								message: 'The minimum swap is 0.01',
+								message: 'Minimum swap is 0.01',
 							},
 							max: {
 								value:

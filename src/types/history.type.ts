@@ -42,5 +42,3 @@ export interface IMarketOrder {
 	price: string
 	createdAt: string
 }
-
-export type TxType = IDepositTx | IWithdrawalTx | ISwapTx

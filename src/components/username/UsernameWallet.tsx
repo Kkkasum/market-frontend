@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import useBackButton from '@/hooks/useBackButton'
-import { ROUTE_USER } from '@/routes'
 import { IUsernameWithOwner } from '@/types/username.type'
 import { formatAddress } from '@/utils/formatters'
 import { StatusWallet } from '../market/Status'
@@ -21,7 +20,7 @@ const UsernameWallet: FC<Props> = ({ id, username, address, ownerId }) => {
 	const [putOnMarketModalOpen, setPutOnMarketModalOpen] =
 		useState<boolean>(false)
 
-	useBackButton(ROUTE_USER)
+	useBackButton()
 
 	return (
 		<>

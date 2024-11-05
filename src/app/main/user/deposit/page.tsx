@@ -1,27 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import WebApp from '@twa-dev/sdk'
+import { useState } from 'react'
 
 import AssetDropdown from '@/components/dropdown/AssetDropdown'
-import Deposit from '@/components/user/deposit/Deposit'
+import RubDeposit from '@/components/user/deposit/RubDeposit'
+import TonDeposit from '@/components/user/deposit/TonDeposit'
+import TronDeposit from '@/components/user/deposit/TronDeposit'
 import useBackButton from '@/hooks/useBackButton'
-import { ROUTE_USER } from '@/routes'
-import { NETWORK } from '@/types/deposit.type'
 import { Asset } from '@/types/user.type'
 
 export default function Page() {
+	let userId = 1
+	if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user?.id) {
+		userId = WebApp.initDataUnsafe.user?.id
+	}
+
 	const [asset, setAsset] = useState<Asset>()
-	const [network, setNetwork] = useState<NETWORK>()
 
-	useBackButton(ROUTE_USER)
-
-	useEffect(() => {
-		if (asset === Asset.USDT) {
-			setNetwork(NETWORK.TRON)
-		} else {
-			setNetwork(NETWORK.TON)
-		}
-	}, [asset])
+	useBackButton()
 
 	return (
 		<div className='flex flex-col gap-5 w-full'>
@@ -30,7 +27,15 @@ export default function Page() {
 				<AssetDropdown asset={asset} setAsset={setAsset} />
 			</div>
 
-			{asset && network && <Deposit asset={asset} network={network} />}
+			{asset === Asset.RUB ? (
+				<RubDeposit userId={userId} />
+			) : asset === Asset.USDT ? (
+				<TronDeposit userId={userId} />
+			) : asset ? (
+				<TonDeposit userId={userId} asset={asset} />
+			) : (
+				<></>
+			)}
 		</div>
 	)
 }

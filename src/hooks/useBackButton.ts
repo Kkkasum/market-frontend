@@ -2,7 +2,7 @@ import WebApp from '@twa-dev/sdk'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 
-export default function useBackButton(route: string) {
+export default function useBackButton() {
 	const router = useRouter()
 
 	const handleBackButtonClick = useCallback(() => router.back(), [router])

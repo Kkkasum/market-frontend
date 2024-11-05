@@ -24,15 +24,17 @@ interface IForm {
 
 const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 	const { data, isLoading } = useFee(NETWORK.TON)
+
 	const { withdrawTon, isWithdrawPending, isError } = useWithdrawTon(userId)
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isValid },
 	} = useForm<IForm>({ mode: 'onChange' })
 
-	const onFormSubmit = ({ address, tag, amount }: IForm) => {
-		withdrawTon({
+	const onFormSubmit = async ({ address, tag, amount }: IForm) => {
+		await withdrawTon({
 			userId: userId,
 			address: address,
 			tag: tag,
@@ -110,7 +112,7 @@ const TonForm: FC<Props> = ({ userId, tonBalance }) => {
 							valueAsNumber: true,
 							min: {
 								value: 0.5,
-								message: 'The minimum withdrawal amount is 0.5',
+								message: 'Minimum withdrawal amount is 0.5',
 							},
 							max: {
 								value: tonBalance - +data.fee,

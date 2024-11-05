@@ -13,7 +13,6 @@ import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
 import Loader from '@/components/ui/Loader'
 import useBackButton from '@/hooks/useBackButton'
-import { ROUTE_USER } from '@/routes'
 import {
 	IDepositTx,
 	IMarketOrder,
@@ -39,7 +38,7 @@ export default function Page() {
 	const [nftTxFilter, setNftTxFilter] = useState<string>(NftTxFilter.DEPOSIT)
 	const [timeSort, setTimeSort] = useState<TimeSort>(TimeSort.RECENTLY)
 
-	useBackButton(ROUTE_USER)
+	useBackButton()
 
 	useEffect(() => {
 		if (assetFilter === AssetFilter.NFT && txFilter === TxFilter.SWAP) {
