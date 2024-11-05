@@ -3,6 +3,7 @@ import {
 	IMarketOrder,
 	INftDepositTx,
 	INftWithdrawalTx,
+	IRubDepositTx,
 	ISwapTx,
 	IWithdrawalTx,
 } from './history.type'
@@ -11,6 +12,7 @@ import { IUsername } from './username.type'
 
 export enum AssetFilter {
 	TOKEN = 'Token',
+	RUB = 'RUB',
 	NFT = 'NFT',
 }
 
@@ -58,6 +60,7 @@ export interface IUserHistoryResponse {
 	depositTxs?: IDepositTx[]
 	withdrawalTxs?: IWithdrawalTx[]
 	swapTxs?: ISwapTx[]
+	rubDepositTxs?: IRubDepositTx[]
 	nftDepositTxs?: INftDepositTx[]
 	nftWithdrawalTxs?: INftWithdrawalTx[]
 	marketOrders?: IMarketOrder[]

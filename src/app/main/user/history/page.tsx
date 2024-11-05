@@ -9,6 +9,7 @@ import DepositTable from '@/components/table/history/DepositTable'
 import MarketOrderTable from '@/components/table/history/MarketOrderTable'
 import NftDepositTable from '@/components/table/history/NftDepositTable'
 import NftWithdrawalTable from '@/components/table/history/NftWIthdrawalTable'
+import RubDepositTable from '@/components/table/history/RubDepositTable'
 import SwapTable from '@/components/table/history/SwapTable'
 import WithdrawalTable from '@/components/table/history/WithdrawalTable'
 import Loader from '@/components/ui/Loader'
@@ -18,6 +19,7 @@ import {
 	IMarketOrder,
 	INftDepositTx,
 	INftWithdrawalTx,
+	IRubDepositTx,
 	ISwapTx,
 	IWithdrawalTx,
 } from '@/types/history.type'
@@ -43,6 +45,11 @@ export default function Page() {
 	useEffect(() => {
 		if (assetFilter === AssetFilter.NFT && txFilter === TxFilter.SWAP) {
 			setTxFilter(TxFilter.DEPOSIT)
+		} else if (
+			assetFilter === AssetFilter.RUB &&
+			txFilter !== TxFilter.DEPOSIT
+		) {
+			setTxFilter(TxFilter.DEPOSIT)
 		}
 	}, [assetFilter])
 
@@ -51,7 +58,11 @@ export default function Page() {
 			<div className='flex items-center gap-3'>
 				<FilterDropdown
 					currentFilter={assetFilter}
-					filters={[AssetFilter.TOKEN, AssetFilter.NFT]}
+					filters={[
+						AssetFilter.TOKEN,
+						AssetFilter.RUB,
+						AssetFilter.NFT,
+					]}
 					setFilter={setAssetFilter}
 					align='start'
 				/>
@@ -64,6 +75,13 @@ export default function Page() {
 							TxFilter.WITHDRAWAL,
 							TxFilter.SWAP,
 						]}
+						setFilter={setTxFilter}
+						align='center'
+					/>
+				) : assetFilter === AssetFilter.RUB ? (
+					<FilterDropdown
+						currentFilter={txFilter}
+						filters={[TxFilter.DEPOSIT]}
 						setFilter={setTxFilter}
 						align='center'
 					/>
@@ -125,6 +143,19 @@ export default function Page() {
 						) : (
 							<span className='text-sm font-light opacity-40'>
 								You have no swaps yet
+							</span>
+						)
+					) : assetFilter === AssetFilter.RUB ? (
+						data.rubDepositTxs ? (
+							<RubDepositTable
+								txs={sortByTime<IRubDepositTx>(
+									data.rubDepositTxs,
+									timeSort
+								)}
+							/>
+						) : (
+							<span className='text-sm font-light opacity-40'>
+								You have no RUB deposits yet
 							</span>
 						)
 					) : assetFilter === AssetFilter.NFT ? (

@@ -24,6 +24,13 @@ export interface ISwapTx extends ITx {
 	volume: number
 }
 
+export interface IRubDepositTx extends ITx {
+	userId: string
+	paymentType: string
+	amountRub: string
+	amountUsdt: string
+}
+
 export interface INftDepositTx extends ITx {
 	nftName: string
 	nftAddress: string

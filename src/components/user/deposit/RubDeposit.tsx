@@ -149,6 +149,8 @@ const RubDeposit: FC<Props> = ({ userId }) => {
 
 			<Warning text='Amount must be integer' />
 
+			<Warning text="If deposit's succeed, RUB will be converted to USDT" />
+
 			<p className='flex flex-col w-full text-start text-sm text-red-500'>
 				<span>{errors.amount?.message}</span>
 			</p>
